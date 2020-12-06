@@ -1,0 +1,11 @@
+{
+    "name": "sandeep/fire_elf",
+    "description": "Basic Admin Portal",
+    "type": "project",
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    }
+}

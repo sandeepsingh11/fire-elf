@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#AddType text/css .css
+#AddType text/javascript .js
+
+# Do not route static files in the public directory
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
+#RewriteRule \.(js|css|svg|jpg|jpeg|png)$ - [L]
+
+RewriteRule ^(.*)$ index.php [QSA,L]
