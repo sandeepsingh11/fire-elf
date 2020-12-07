@@ -17,6 +17,10 @@ $pages_arr = array_values($pages_arr);
 <h1>Pages</h1>
 <h3>Fire Elf</h3>
 
+
+
+<a href="/pages/add">Add a new page</a>
+
 <div id="pages_container">
     <ol>
         <?php

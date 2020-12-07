@@ -1,6 +1,6 @@
 <?php
 
-class EditorController extends Controller {
+class EditPageController extends Controller {
 
     function __construct() {
         
@@ -15,7 +15,7 @@ class EditorController extends Controller {
 
 
 
-        include_once __DIR__ . '/../views/editor.php';
+        include_once __DIR__ . '/../views/editPage.php';
     }
 
 
