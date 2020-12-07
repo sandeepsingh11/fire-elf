@@ -1,2 +1,1 @@
-<h1>Hewwo World!</h1>
-<h2>Client index</h2>
+<h1>Hewwo World!</h1><h2>Client index</h2><p>Here is some <b>random text</b> in as a <em>paragraph</em></p><div><a href="#">I do not link to anywhere</a></div><div>Added from the <b>editor</b>!<br></div>

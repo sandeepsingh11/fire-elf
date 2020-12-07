@@ -12,8 +12,16 @@
     <h1>Editor</h1>
     <h3>Fire Elf</h3>
 
-    <div id="summernote"></div>
-    <input type="hidden" id="content" value="<?php echo htmlentities($pageContent); ?>">
+    <form action="/pages/edit" method="POST">
+        <textarea name="new-content" id="summernote"></textarea>
+        <input type="hidden" name="page" id="page" value="<?php echo htmlentities($pageName); ?>">
+        
+        
+        <input type="submit" value="Update">
+    </form>
+
+
+    <input type="hidden" name="content" id="content" value="<?php echo htmlentities($pageContent); ?>">
 
 
 
