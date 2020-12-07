@@ -2,9 +2,13 @@
 
 class AddPageController extends Controller {
 
+    private $pages;
+
     function __construct() {
-        
+        $this->pages = new Pages();    
     }
+
+
 
     public function get() {
         include_once __DIR__ . '/../views/addPage.php';
@@ -14,14 +18,33 @@ class AddPageController extends Controller {
 
     /**
      * add the new page, from the summernote wysiwyg
+     * and update meta file (pages_info.json)
      */
     public function post() {
+        // get values to write a new file
         $pageContent = $_POST['content'];
         $title = $_POST['title'];
         $filename = $this->titleToFile($title);
         $pagePath = '../' . CLIENT_PAGES_DIR . $filename . '.php';
 
+        // create view on the client side
         file_put_contents($pagePath, $pageContent);
+        
+
+
+        // get values for the meta file (pages_info.json)
+        date_default_timezone_set(TIMEZONE);
+        $date = date('m-d-Y h:ia');
+
+        $pagesInfo = $this->pages->getPagesInfo();
+        $newPageInfo = array('name' => $title, 'file' => $filename . '.php', 'updated_at' => $date);
+        array_push($pagesInfo['pages'], $newPageInfo);
+
+        // call Model to write to file
+        $this->pages->setPagesInfo($pagesInfo);
+
+
+        header('Location: /pages');
     }
 
 

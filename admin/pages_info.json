@@ -1,9 +1,14 @@
 {
     "pages": [
         {
-            "name": "home",
-            "url": "/",
-            "updated_at": "12/6/2020 23:27"
+            "name": "Home",
+            "file": "index.php",
+            "updated_at": "12-6-2020 11:27pm"
+        },
+        {
+            "name": "About",
+            "file": "about.php",
+            "updated_at": "12-07-2020 06:43pm"
         }
     ]
 }

@@ -25,9 +25,12 @@ $pages_arr = array_values($pages_arr);
     <ol>
         <?php
 
-        foreach ($pages_arr as $page) {
+        foreach ($pagesInfo_arr as $page) {
             ?>
-            <li class="page"><a href="/pages/edit?id=<?php echo htmlentities($page) ?>"><?php echo htmlentities($page) ?></a></li>
+            <li class="page">
+                <a href="/pages/edit?id=<?php echo htmlentities($page['name']) ?>"><?php echo htmlentities($page['name']) ?></a>
+                Last updated at: <?php echo htmlentities($page['updated_at']) ?>
+            </li>
             <?php
         }
 

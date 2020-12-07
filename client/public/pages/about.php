@@ -1,0 +1,1 @@
+<h1>About</h1><p>Wow it's an about page. This is where I tell you <b>who I am</b>. Well, you know that already. I am, the <i><b>Fire Elf!</b></i><br></p>
