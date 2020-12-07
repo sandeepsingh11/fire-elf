@@ -5,7 +5,7 @@
     "require": {},
     "autoload": {
         "classmap": [
-            "src/"
+            "admin/"
         ]
     }
 }

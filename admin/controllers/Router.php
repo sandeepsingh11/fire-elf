@@ -51,7 +51,8 @@ class Router {
             return $this->callAction($controller__method[0], $controller__method[1]);
         }
         else {
-            include_once __DIR__ . '/../views/404.php';
+            echo "/$uri [$method] route not recognized. Check your 'routes.php' file";
+            // include_once __DIR__ . '/../views/404.php';
         }
         // else {
         //     return $this->callAction(

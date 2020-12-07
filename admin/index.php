@@ -5,8 +5,8 @@
  * include db connection
  * autoload to include all classes
  */
-// require __DIR__ . '/../config.php';
-// require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/config.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 
 
