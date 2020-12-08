@@ -9,8 +9,8 @@ class PageController extends Controller {
     }
 
     public function get() {
-        $pagesInfo_arr = $this->pages->getPagesInfo();
-        $pagesInfo_arr = $pagesInfo_arr['pages'];
+        $pageList = $this->pages->getPageList();
+        $pageList = $pageList['pages'];
         
         include_once __DIR__ . '/../views/pages.php';
     }
