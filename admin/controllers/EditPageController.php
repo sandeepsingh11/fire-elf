@@ -27,7 +27,7 @@ class EditPageController extends Controller {
 
             // get page content
             $filePath = '../' . CLIENT_PAGES_DIR . $filename;
-            $pageContent = file_get_contents($filePath, true);
+            $pageContent = file_get_contents($filePath);
         }
 
 
@@ -62,9 +62,10 @@ class EditPageController extends Controller {
         }
 
         // call Model to write to page_list.json
-        $this->pages->setPageList($pageList);
+        // $this->pages->setPageList($pageList);
 
 
-        header('Location: /pages');
+        // header('Location: /pages');
+
     }
 }

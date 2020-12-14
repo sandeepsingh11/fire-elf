@@ -25,7 +25,7 @@ $pages_arr = array_values($pages_arr);
     <ol>
         <?php
 
-        foreach ($pagesInfo_arr as $page) {
+        foreach ($pageList as $page) {
             ?>
             <li class="page">
                 <a href="/pages/edit?id=<?php echo htmlentities($page['name']) ?>"><?php echo htmlentities($page['name']) ?></a>
