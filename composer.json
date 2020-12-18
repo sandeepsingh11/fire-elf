@@ -2,7 +2,9 @@
     "name": "sandeep/fire_elf",
     "description": "Basic Admin Portal",
     "type": "project",
-    "require": {},
+    "require": {
+        "nadar/quill-delta-parser": "^2.6"
+    },
     "autoload": {
         "classmap": [
             "admin/"

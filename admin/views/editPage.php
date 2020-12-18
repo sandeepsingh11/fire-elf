@@ -1,92 +1,110 @@
-<!-- https://summernote.org/getting-started/ -->
+<!-- https://quilljs.com/docs/quickstart/ -->
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>Edit Page | Fire Elf</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> -->
-    <link href="/summernote/summernote-lite.min.css" rel="stylesheet">
-    <script src="/summernote/summernote-lite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   </head>
   <body>
     <h1>Editor</h1>
     <h3>Fire Elf</h3>
 
-    <form action="/pages/edit" method="POST">
-        <textarea name="new-content" id="summernote"></textarea>
-        <input type="hidden" name="page" id="page" value="<?php echo htmlentities($pageName); ?>">
-        
-        
-        <input type="submit" value="Update">
+    <form id="form-editor" action="/pages/edit" method="POST">      
+      <?php
+      for($i = 0; $i < sizeof($quillBlock_arr); $i++) {
+        ?>
+        <div 
+          id="editor-<?php echo ($i + 1) ?>" 
+          name="new-content-<?php echo ($i + 1) ?>"
+          >
+          <?php echo $quillBlock_arr[$i] ?>
+        </div>
+        <?php
+      }
+      ?>
+      
+      <input type="hidden" name="page" id="page" value="<?php echo htmlentities($pageName); ?>">
+      
+      
+      
+      <input type="submit" value="Update">
     </form>
 
 
+    <input type="hidden" name="block-num" id="block-num" value="<?php echo $i ?>">
     <input type="hidden" name="content" id="content" value="<?php echo htmlentities($pageContent); ?>">
+    
 
 
 
 
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+    
 
     <script>
-      $('#summernote').summernote({
-        // placeholder: ' ',
-        tabsize: 2,
-        height: 250,
-        // airMode: true,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
+      var quillEle_arr = [];
+      var blockNum = $('#block-num').val();
 
-      var content = $('#content').val();
-      console.log(content);
-      content = content.replace(/<\?(php)/g, "<!--");
-      content = content.replace(/\?>/g, "-->");
-      content = content.replace(/<(script)>/g, "<p style='background-color:salmon;color:salmon' data-lang='js'>");
-      content = content.replace(/<\/script>/g, "</p>");
-      // content = content.replace(/<\?(php)/g, "<p style='background-color:salmon;color:salmon' data-lang='php'>");
-      // content = content.replace(/\?>/g, "</p>");
-      // content = content.replace(/<(script)>/g, "<p style='background-color:salmon;color:salmon' data-lang='js'>");
-      // content = content.replace(/<\/script>/g, "</p>");
-      console.log(content);
-      $('#summernote').summernote('pasteHTML', content);
+      // create quill editor for each block content
+      for (var i = 0; i < blockNum; i++) {
+        var currentSelector = '#editor-' + (i + 1);
+
+        // Initialize Quill editors
+        var quillEle = new Quill(currentSelector, {
+          theme: 'snow'
+        }); 
+
+        quillEle_arr.push(quillEle);
+      }
 
 
+      // escape scripts
+      // var content = $('#content').val();
+      // content = content.replace(/<\?(php)/g, "<h1>");
+      // content = content.replace(/\?>/g, "</h1>");
+      // content = content.replace(/<(script)>/g, "<!--js");
+      // content = content.replace(/<\/script>/g, "-->");
+      
 
 
-      $('#summernote').blur(function(e) {
-        var phpkey1 = "<"+"?php",
-            phpkeyend = "?>",
-            stylekey1 = "&lt;style&gt;",
-            stylekey2 = "&lt;style type=\"text/css\"&gt;",
-            stylekeyend = "&lt;/style&gt;",
-            scriptkey1 = "&lt;script&gt;",
-            scriptkey2 = "&lt;script type=\"text/javascript\"&gt;",
-            scriptkeyend = "&lt;/script&gt;";
+      // on form submit, get quill delta (ops),
+      // then resume submit
+      $('#form-editor').submit(function(e)  {
+        e.preventDefault();
 
-        var code = $(this).code();
 
-        code = $.trim(code)
-          .replace(/<!--\?php/g, phpkey1)
-          .replace(/\?-->/g, phpkeyend)
-          .replace(/<style>/g, stylekey1)
-          .replace(/<style type="text\/css">/g, stylekey2)
-          .replace(/<\/style>/g, stylekeyend)
-          .replace(/<script>/g, scriptkey1)
-          .replace(/<script type="text\/javascript">/g, scriptkey2)
-          .replace(/<\/script>/g, scriptkeyend);
+        // get quill delta for each editor
+        for (var i = 0; i < blockNum; i++) {
+          var delta = quillEle_arr[i].getContents();
+          var input = '<input type="hidden" name="ops-' + (i + 1) + '" id="ops-' + (i + 1) + '" value=\'' + JSON.stringify(delta) + '\'>';
+          
+          $('#page').after(input);
+        }
 
-        var content = $("textarea[name='new-content']").html(code);
-        console.log('blurred!');
+
+        // resume form submit
+        e.target.submit();
+        
+
+
+
+
+        // $.ajax({
+        //   url: '/pages/edit',
+        //   type: 'POST',
+        //   data: {
+        //     page: page,
+        //     ops: delta_arr[0].ops
+        //   }
+        // });
+        
       });
     </script>
   </body>

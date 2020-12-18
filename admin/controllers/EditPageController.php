@@ -25,9 +25,25 @@ class EditPageController extends Controller {
             }
 
 
-            // get page content
+            // get entire page
             $filePath = '../' . CLIENT_PAGES_DIR . $filename;
             $pageContent = file_get_contents($filePath);
+
+            // extract content between <fireelf> tags
+            // use for multiple block editing
+            $quillBlock_arr = [];
+            $indexBegin = 0;
+            $indexEnd = 0;
+
+            while ($indexBegin = strpos($pageContent, '<fireelf>', $indexEnd)) {
+                $indexEnd = strpos($pageContent, '</fireelf>', $indexBegin);
+                $len = $indexEnd - $indexBegin;
+
+                // extract string
+                $blockContent = substr($pageContent, $indexBegin, $len);
+
+                array_push($quillBlock_arr, $blockContent);
+            }
         }
 
 
@@ -40,13 +56,39 @@ class EditPageController extends Controller {
      * update the page's content from the summernote wysiwyg
      */
     public function post() {
-        // get updated content
-        $newContent = $_POST['new-content'];
+        // get form values
         $pageName = $_POST['page'];
+
+        // get all deltas and convert to json
+        $ops_arrJson = [];
+        $i = 1;
+        while (isset($_POST["ops-$i"])) {
+            $ops = $_POST["ops-$i"];
+
+            $ops = json_decode($ops, true);
+            array_push($ops_arrJson, $ops);
+
+            $i++;
+        }
+        
+        
+
+        // get file path to update file
         $pagePath = '../' . CLIENT_PAGES_DIR . $pageName . '.php';
 
-        // update view on the client side
-        file_put_contents($pagePath, $newContent);
+
+        // convert json ops to html string
+        $htmlContent = '';
+        foreach ($ops_arrJson as $ops) {
+            $lexer = new nadar\quill\Lexer($ops);
+            $htmlContent .= $lexer->render();
+        }
+
+
+
+        // update client side view with new content
+        file_put_contents($pagePath, $htmlContent);
+
 
 
         // update 'updated_at' value
