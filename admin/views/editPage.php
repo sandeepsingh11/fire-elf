@@ -38,7 +38,7 @@
     <input type="hidden" name="block-num" id="block-num" value="<?php echo $i ?>">
     <input type="hidden" name="content" id="content" value="<?php echo htmlentities($pageContent); ?>">
     
-
+    <a href="/pages">Back to Pages</a>
 
 
 
@@ -57,21 +57,25 @@
         var currentSelector = '#editor-' + (i + 1);
 
         // Initialize Quill editors
+        var toolbarOptions = [
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          ['bold', 'italic', 'underline', 'strike', 'link'],
+          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+          [{ 'align': [] }],
+          ['image'],
+          ['clean']
+        ];
+
         var quillEle = new Quill(currentSelector, {
+          modules: {
+            toolbar: toolbarOptions
+          },
           theme: 'snow'
         }); 
 
         quillEle_arr.push(quillEle);
       }
 
-
-      // escape scripts
-      // var content = $('#content').val();
-      // content = content.replace(/<\?(php)/g, "<h1>");
-      // content = content.replace(/\?>/g, "</h1>");
-      // content = content.replace(/<(script)>/g, "<!--js");
-      // content = content.replace(/<\/script>/g, "-->");
-      
 
 
       // on form submit, get quill delta (ops),
@@ -91,20 +95,6 @@
 
         // resume form submit
         e.target.submit();
-        
-
-
-
-
-        // $.ajax({
-        //   url: '/pages/edit',
-        //   type: 'POST',
-        //   data: {
-        //     page: page,
-        //     ops: delta_arr[0].ops
-        //   }
-        // });
-        
       });
     </script>
   </body>

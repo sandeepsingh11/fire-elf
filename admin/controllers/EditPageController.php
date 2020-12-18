@@ -29,21 +29,9 @@ class EditPageController extends Controller {
             $filePath = '../' . CLIENT_PAGES_DIR . $filename;
             $pageContent = file_get_contents($filePath);
 
-            // extract content between <fireelf> tags
-            // use for multiple block editing
+            // get <fireelf> content to edit
             $quillBlock_arr = [];
-            $indexBegin = 0;
-            $indexEnd = 0;
-
-            while ($indexBegin = strpos($pageContent, '<fireelf>', $indexEnd)) {
-                $indexEnd = strpos($pageContent, '</fireelf>', $indexBegin);
-                $len = $indexEnd - $indexBegin;
-
-                // extract string
-                $blockContent = substr($pageContent, $indexBegin, $len);
-
-                array_push($quillBlock_arr, $blockContent);
-            }
+            $quillBlock_arr = $this->getFireelfContent($pageContent);
         }
 
 
@@ -53,7 +41,7 @@ class EditPageController extends Controller {
 
 
     /**
-     * update the page's content from the summernote wysiwyg
+     * update the page's content from the quilljs wysiwyg
      */
     public function post() {
         // get form values
@@ -74,20 +62,32 @@ class EditPageController extends Controller {
         
 
         // get file path to update file
-        $pagePath = '../' . CLIENT_PAGES_DIR . $pageName . '.php';
+        // get according page file
+        $pageList = $this->pages->getPageList();
+        $pagePath = '';
+        foreach ($pageList['pages'] as $page) {
+            if ($page['name'] == $pageName) {
+                $filename = $page['file'];
+                break;
+            }
+        }
+        $pagePath = '../' . CLIENT_PAGES_DIR . $filename;
 
 
         // convert json ops to html string
         $htmlContent = '';
+        $newHtml_arr = [];
         foreach ($ops_arrJson as $ops) {
             $lexer = new nadar\quill\Lexer($ops);
             $htmlContent .= $lexer->render();
+
+            array_push($newHtml_arr, $lexer->render());
         }
 
 
 
         // update client side view with new content
-        file_put_contents($pagePath, $htmlContent);
+        $this->setFireelfContent($pagePath, $newHtml_arr);
 
 
 
@@ -104,10 +104,74 @@ class EditPageController extends Controller {
         }
 
         // call Model to write to page_list.json
-        // $this->pages->setPageList($pageList);
+        $this->pages->setPageList($pageList);
 
 
-        // header('Location: /pages');
+        header('Location: /pages');
+    }
 
+
+
+    /**
+     * extract < fireelf > contents from an html file
+     * @param string $pageContent
+     * @return array
+     */
+    public function getFireelfContent($pageContent) {
+        // extract content between <fireelf> tags
+        // use for multiple block editing
+        $quillBlock_arr = [];
+        $indexBegin = 0;
+        $indexEnd = 0;
+        $i = 1;
+
+        while ($indexBegin = strpos($pageContent, '<fireelf data-id="' . $i . '">', $indexEnd)) {
+            $indexEnd = strpos($pageContent, '</fireelf>', $indexBegin);
+            $len = $indexEnd - $indexBegin;
+
+            // extract string
+            $blockContent = substr($pageContent, $indexBegin, $len);
+
+            array_push($quillBlock_arr, $blockContent);
+
+            $i++;
+        }
+
+
+        return $quillBlock_arr;
+    }
+
+
+    /**
+     * set < fireelf > contents for an html file
+     * @param string $filepath
+     * @param array $fireelfContents
+     * @return void
+     */
+    public function setFireelfContent($filepath, $fireelfContents) {
+        // get file content
+        $pageContent = file_get_contents($filepath);
+
+        // set content between <fireelf> tags
+        $indexBegin = 0;
+        $indexEnd = 0;
+
+        // loop through each <fireelf> tag
+        for ($i = 0; $i < sizeof($fireelfContents); $i++) {
+            $indexBegin = strpos($pageContent, '<fireelf data-id="' . ($i + 1) . '">');
+            $indexEnd = strpos($pageContent, '</fireelf>', $indexBegin);
+            $len = $indexEnd - $indexBegin;
+
+            
+            // prepare string for insert
+            $newContent = "<fireelf data-id=\"" . ($i + 1) . "\">" . $fireelfContents[$i];
+            
+            // replace old <fireelf> content with new content
+            $pageContent = substr_replace($pageContent, $newContent, $indexBegin, $len);
+        }
+
+        
+        // write to file
+        file_put_contents($filepath, $pageContent);
     }
 }
