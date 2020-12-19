@@ -9,6 +9,11 @@
             "name": "About",
             "file": "about.php",
             "updated_at": "12-18-2020 06:50pm"
+        },
+        {
+            "name": "Service",
+            "file": "service.php",
+            "updated_at": "12-18-2020 11:32pm"
         }
     ]
 }

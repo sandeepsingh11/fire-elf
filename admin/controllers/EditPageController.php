@@ -125,6 +125,9 @@ class EditPageController extends Controller {
         $indexEnd = 0;
         $i = 1;
 
+        // ***NOTE*** starting at index 0 of $pageContent will not work; this method
+        // has funky behaviour for the 0th index for some reason. This is mentioned below:
+        // https://www.php.net/manual/en/function.strpos.php
         while ($indexBegin = strpos($pageContent, '<fireelf data-id="' . $i . '">', $indexEnd)) {
             $indexEnd = strpos($pageContent, '</fireelf>', $indexBegin);
             $len = $indexEnd - $indexBegin;

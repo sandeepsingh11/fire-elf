@@ -1,4 +1,3 @@
-<p><br>
 <?php
 require '../comp/nav.php'
 ?>

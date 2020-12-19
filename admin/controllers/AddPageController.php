@@ -17,15 +17,27 @@ class AddPageController extends Controller {
 
 
     /**
-     * add the new page, from the summernote wysiwyg
+     * add the new page, from the quilljs wysiwyg
      * and update page_list.json
      */
     public function post() {
-        // get values to write a new file
-        $pageContent = $_POST['content'];
+        // get values to write the new file
         $title = $_POST['title'];
         $filename = $this->titleToFile($title);
         $pagePath = '../' . CLIENT_PAGES_DIR . $filename . '.php';
+
+        // convert quill delta to html
+        $ops = $_POST['ops-1'];
+        $ops = json_decode($ops, true);
+
+        $lexer = new nadar\quill\Lexer($ops);
+        $htmlContent = $lexer->render();
+
+
+        // prepare html string to insert
+        $pageContent = "<fireelf data-id=\"1\">$htmlContent</fireelf>";
+
+
 
         // create view on the client side
         file_put_contents($pagePath, $pageContent);
@@ -55,6 +67,7 @@ class AddPageController extends Controller {
     /**
      * make the title name into a file name
      * @param string $title
+     * @return string
      */
     public function titleToFile($title) {
         $filename = '';
