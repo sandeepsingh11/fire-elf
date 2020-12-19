@@ -87,7 +87,10 @@
         // get quill delta for each editor
         for (var i = 0; i < blockNum; i++) {
           var delta = quillEle_arr[i].getContents();
-          var input = '<input type="hidden" name="ops-' + (i + 1) + '" id="ops-' + (i + 1) + '" value=\'' + JSON.stringify(delta) + '\'>';
+          var delta_json = JSON.stringify(delta);
+          delta_json = delta_json.replace(/'/g, '&#39;'); // convert "'"
+
+          var input = '<input type="hidden" name="ops-' + (i + 1) + '" id="ops-' + (i + 1) + '" value=\'' + delta_json + '\'>';
           
           $('#page').after(input);
         }
