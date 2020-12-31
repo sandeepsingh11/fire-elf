@@ -1,5 +1,7 @@
 <?php
-require '../comp/nav.php'
+$pageTitle = "Home - Demo";
+require '../comp/head.php';
+require '../comp/nav.php';
 ?>
 
 <fireelf data-id="1"><h1>Hewwo World!</h1><h2>Client index</h2><p>Here is <u>some</u> <strong>random text</strong> in as a <em>paragraph</em></p><p><a href="#" target="_blank">I do not link to anywhere</a></p><p>Added from the <strong>editor</strong>!</p></fireelf>
@@ -16,3 +18,6 @@ for ($i = 0; $i < 5; $i++) {
 ?>
 
 <script>console.log('henlo');</script>
+
+<?php
+require '../comp/footer.php';

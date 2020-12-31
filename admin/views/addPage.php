@@ -17,6 +17,25 @@
         <label for="title">Page title:</label>
         <input type="text" name="title" id="title">
 
+        <label for="dir">Parent URL</label>
+        <select name="dir" id="dir"> 
+          <option value="/">/</option>
+          
+          <?php
+          foreach($pageUrl_arr as $page) {
+            $pageUrlDir = $page['dir'] . htmlspecialchars($page['name']);
+            $pageFileDir = $page['dir'] . htmlspecialchars($page['file']);
+            ?>
+            <option value="<?php echo $pageFileDir?>">
+              <?php echo $pageUrlDir ?>
+            </option>
+            <?php
+          }
+          ?>
+
+        </select>
+
+
         <div name="content-1" id="editor-1"></div>
         
         

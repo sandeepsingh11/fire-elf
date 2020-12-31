@@ -19,6 +19,7 @@ class EditPageController extends Controller {
             foreach ($pageList['pages'] as $page) {
                 if ($page['name'] == $_GET['id']) {
                     $pageName = $page['name'];
+                    $pageDir = $page['parent_dir'];
                     $filename = $page['file'];
                     break;
                 }
@@ -26,7 +27,20 @@ class EditPageController extends Controller {
 
 
             // get entire page
-            $filePath = '../' . CLIENT_PAGES_DIR . $filename;
+            // if located in root dir
+            if ($pageDir == '/') {
+                $filePath = '../' . CLIENT_PAGES_DIR . $filename;
+            }
+            // if located in non-root dir
+            else {
+                $dirSeg_arr = explode('/', $pageDir);
+
+                $filePath = '../' . CLIENT_PAGES_DIR;
+                for ($i = 1; $i < sizeof($dirSeg_arr); $i++) {
+                    $filePath .= $dirSeg_arr[$i] . '/';
+                }
+                $filePath .= $filename;
+            }
             $pageContent = file_get_contents($filePath);
 
             // get <fireelf> content to edit

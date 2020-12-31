@@ -11,6 +11,24 @@ class AddPageController extends Controller {
 
 
     public function get() {
+        // get pages' url parent dir
+        $pageList = $this->pages->getPageList();
+        $pageUrl_arr = [];
+
+        foreach($pageList['pages'] as $page) {
+            $pageName = $page['name'];
+            $pageParentDir = $page['parent_dir'];
+            $pageFile = rtrim($page['file'], '.php');
+            
+            $page = array(
+                "name" => $pageName, 
+                "dir" => $pageParentDir, 
+                "file" => $pageFile
+            );
+
+            array_push($pageUrl_arr, $page);
+        }
+
         include_once __DIR__ . '/../views/addPage.php';
     }
 
@@ -23,8 +41,36 @@ class AddPageController extends Controller {
     public function post() {
         // get values to write the new file
         $title = $_POST['title'];
+        $dir = $_POST['dir'];
         $filename = $this->titleToFile($title);
-        $pagePath = '../' . CLIENT_PAGES_DIR . $filename . '.php';
+
+        $dirLevels = 0;
+
+
+        // set file path
+        // if root dir
+        if ($dir == '/') {
+            $pagePath = '../' . CLIENT_PAGES_DIR . $filename . '.php';
+        }
+        // if not root dir
+        else { 
+            $dirSeg_arr = explode('/', $dir);
+
+            // build filepath
+            $pagePath = '../' . CLIENT_PAGES_DIR;
+            for ($i = 1; $i < sizeof($dirSeg_arr); $i++) {
+                $pagePath .= $dirSeg_arr[$i] . '/';
+
+                $dirLevels++;
+            }
+
+            // create new folder if non-existant
+            mkdir($pagePath);
+
+            $pagePath .= $filename . '.php';
+        }
+
+
 
         // convert quill delta to html
         $ops = $_POST['ops-1'];
@@ -34,8 +80,21 @@ class AddPageController extends Controller {
         $htmlContent = $lexer->render();
 
 
-        // prepare html string to insert
-        $pageContent = "<fireelf data-id=\"1\">$htmlContent</fireelf>";
+        // prepare html body string to insert
+        $dirRelPath = '\'../';
+        for ($i = 1; $i <= $dirLevels; $i++) {
+            $dirRelPath .= '../';
+        }
+
+        $headContent = '<?php
+        $pageTitle = "' . $title . ' - ' . WEBSITE_NAME . '";
+        require ' . $dirRelPath . 'comp/head.php\';
+        require ' . $dirRelPath . 'comp/nav.php\';
+        ?>';
+        $bodyContent = '<fireelf data-id="1">' . $htmlContent . '</fireelf>';
+        $footerContent = '<?php ' . $dirRelPath . 'comp/footer.php\';';
+
+        $pageContent = $headContent . $bodyContent . $footerContent;
 
 
 
@@ -50,6 +109,7 @@ class AddPageController extends Controller {
         $pageList = $this->pages->getPageList();
         $newPageInfo = array(
             'name' => $title, 
+            'parent_dir' => $dir . '/',
             'file' => $filename . '.php', 
             'updated_at' => $date
         );

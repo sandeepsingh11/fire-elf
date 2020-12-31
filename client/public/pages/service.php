@@ -1,4 +1,6 @@
 <?php
+$pageTitle = "Service - Demo";
+require '../comp/head.php';
 require '../comp/nav.php'
 ?>
 
