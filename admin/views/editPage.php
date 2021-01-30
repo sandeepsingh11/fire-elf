@@ -20,6 +20,7 @@
         <div 
           id="editor-<?php echo ($i + 1) ?>" 
           name="new-content-<?php echo ($i + 1) ?>"
+          class="editor"
           >
           <?php echo $quillBlock_arr[$i] ?>
         </div>
@@ -46,11 +47,15 @@
     <!-- Include the Quill library -->
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
+    <!-- Include quill-image-uploader module - https://github.com/NoelOConnell/quill-image-uploader -->
+    <script src="https://unpkg.com/quill-image-uploader@1.2.2/dist/quill.imageUploader.min.js"></script>
+
     
 
     <script>
       var quillEle_arr = [];
       var blockNum = $('#block-num').val();
+      var fileObj_arr = [];
 
       // create quill editor for each block content
       for (var i = 0; i < blockNum; i++) {
@@ -66,9 +71,22 @@
           ['clean']
         ];
 
+        // Initialize quill-image-uploader module
+        Quill.register("modules/imageUploader", ImageUploader);
+
+
+        
         var quillEle = new Quill(currentSelector, {
           modules: {
-            toolbar: toolbarOptions
+            toolbar: toolbarOptions,
+            imageUploader: {
+              upload: file => {
+                return new Promise((resolve, reject) => {
+                  // push new img name
+                  fileObj_arr.push(file.name);
+                });
+              }
+            }
           },
           theme: 'snow'
         }); 
@@ -90,12 +108,37 @@
           var delta_json = JSON.stringify(delta);
           delta_json = delta_json.replace(/'/g, '&#39;'); // convert "'"
 
-          var input = '<input type="hidden" name="ops-' + (i + 1) + '" id="ops-' + (i + 1) + '" value=\'' + delta_json + '\'>';
+          var inputOps = '<input type="hidden" name="ops-' + (i + 1) + '" id="ops-' + (i + 1) + '" value=\'' + delta_json + '\'>';
           
-          $('#page').after(input);
+          // append to form for submission
+          $('#page').after(inputOps);
         }
 
 
+        // build image names string
+        var imgNames_str = "";
+        var len = fileObj_arr.length;
+
+
+        // there could be more image names pushed into fileObj_arr
+        // than there are new base64 images since the user can delete
+        // images after uploading, and there currently isn't an easy
+        // way to implement an image deletion listener to pop the
+        // deleted image name out of the array.
+
+        // instead, use the latest pushed names (hence reversed for loop)
+        for (var i = len - 1; i >= 0; i--) {
+          imgNames_str += fileObj_arr[i] + ",";
+        }
+
+        // trim off last " "
+        imgNames_str = imgNames_str.slice(0, -1);
+
+        // append to form for submission
+        var inputImgNames = '<input type="hidden" name="image-names" value="' + imgNames_str + '">';
+        $('#page').after(inputImgNames);
+
+        
         // resume form submit
         e.target.submit();
       });
