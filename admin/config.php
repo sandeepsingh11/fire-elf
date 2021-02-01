@@ -12,3 +12,7 @@ define('ADMIN_URL', 'http://admin.fireelf.xyz/');
 
 define('MEDIA_DIR', 'admin/media/');
 define('MEDIA_URL', 'http://admin.fireelf.xyz/media/');
+
+// MEDIA_SIZE_LIMIT integer is in Bytes (5242880 B = 5 MB)
+// https://www.convertunits.com/from/MB/to/B
+define('MEDIA_SIZE_LIMIT', 5242880);

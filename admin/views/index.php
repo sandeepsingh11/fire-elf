@@ -3,7 +3,7 @@
 
 <ul>
     <li><a href="/pages">pages</a></li>
-    <li><a href="#">media</a></li>
+    <li><a href="/media-lib">media</a></li>
     <li><a href="#">settings</a></li>
     <li><a href="#">profile</a></li>
     <li><a href="#">logout</a></li>
