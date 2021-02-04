@@ -71,14 +71,4 @@ class MediaController extends Controller {
             }
         }
     }
-
-
-
-    /**
-     * Pretty print PHP array
-     * @param array $array
-     */
-    public function prettyPrint($array) {
-        echo '<pre>'.print_r($array, true).'</pre>';
-    }
 }

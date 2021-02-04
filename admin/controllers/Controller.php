@@ -3,6 +3,17 @@
 abstract class Controller {
     protected $page_title;
 
+
+
+    /**
+     * Pretty print PHP array
+     * @param array $array
+     */
+    public static function prettyPrint($array) {
+        echo '<pre>'.print_r($array, true).'</pre>';
+    }
+
+    
     /**
      * get the page 
      */ 

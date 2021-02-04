@@ -16,3 +16,9 @@ $router->post('pages/edit', 'EditPageController@post');
 
 $router->get('media-lib', 'MediaController@get');
 $router->post('media-lib', 'MediaController@post');
+
+
+
+$router->get('blogs', 'BlogController@getAll');
+$router->get('blog/editor', 'BlogController@get');
+$router->post('blog/editor', 'BlogController@post');

@@ -157,16 +157,7 @@ class AddPageController extends Controller {
 
         header('Location: /pages');
     }
-
-
-
-    /**
-     * Pretty print PHP array
-     * @param array $array
-     */
-    public function prettyPrint($array) {
-        echo '<pre>'.print_r($array, true).'</pre>';
-    }
+    
     
     
     /**
