@@ -15,6 +15,8 @@ class BlogController extends Controller {
      * get page to display all blog posts
      */
     public function getAll() {
+        $blogs_arr = $this->blog->getAllBlogs();
+        
         include_once __DIR__ . '/../views/blogs.php';
     }
 
@@ -70,7 +72,7 @@ class BlogController extends Controller {
         $author = $_POST['author'];
         $tags_arr = explode(",", $_POST['tags']);
         $imageObj = $_FILES['cover'];
-        $id = $_POST['id'];
+        $id = intval($_POST['id']);
         $ops = $_POST['ops'];
 
         $this->blog->setBlogData($id, $title, $slug, $author, $tags_arr, $imageObj, $ops);

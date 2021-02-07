@@ -20,6 +20,16 @@ class Blog {
 
 
     /**
+     * get all blogs from blog_list.json
+     * @return array
+     */
+    public function getAllBlogs() {
+        return $this->blogList['blog'];
+    }
+
+
+
+    /**
      * get blog info
      * @param integer $id
      * @return array
@@ -105,7 +115,11 @@ class Blog {
             // get existing blog entry
             $blogObj = $this->getBlogInfo($id);
 
-            if ($imageObj['tmp_name'] == '') {
+            if ($blogObj == -1) {
+                echo 'Error: blog id ' . $id . ' not found';
+                exit();
+            }
+            else if ($imageObj['tmp_name'] == '') {
                 // if no new image was submitted, use old image
                 $imageObj['name'] = $blogObj['cover'];
             }
