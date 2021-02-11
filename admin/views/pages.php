@@ -19,7 +19,7 @@ $pages_arr = array_values($pages_arr);
 
 
 
-<a href="/pages/add">Add a new page</a>
+<a href="/pages/editor">Add a new page</a>
 
 <div id="pages_container">
     <ol>
@@ -28,7 +28,7 @@ $pages_arr = array_values($pages_arr);
         foreach ($pageList as $page) {
             ?>
             <li class="page">
-                <a href="/pages/edit?id=<?php echo htmlentities($page['name']) ?>"><?php echo htmlentities($page['name']) ?></a>
+                <a href="/pages/editor?id=<?php echo htmlentities($page['id']) ?>"><?php echo htmlentities($page['name']) ?></a>
                 Last updated at: <?php echo htmlentities($page['updated_at']) ?>
             </li>
             <?php

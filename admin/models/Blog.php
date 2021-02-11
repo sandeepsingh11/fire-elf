@@ -155,7 +155,7 @@ class Blog {
 
         // get next available blog id
         if ($create) {
-            $id = $this->nextId();
+            $id = $this->nextBlogId();
         }
             
         // convert quill delta to html
@@ -235,7 +235,7 @@ class Blog {
      * find the next blog id to use from blog_list.json
      * @return integer
      */
-    private function nextId() {
+    private function nextBlogId() {
         $blogsLen = sizeof($this->blogList['blog']);
 
         $lastId = $this->blogList['blog'][$blogsLen - 1]['id'];
