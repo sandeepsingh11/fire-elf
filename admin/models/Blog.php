@@ -83,6 +83,7 @@ class Blog {
 
 
         // cover image handler
+        $Media = new Media();
         if ($create) {
             if ($imageObj['tmp_name'] != '') {
                 // if an image was submitted, continue
@@ -91,17 +92,15 @@ class Blog {
                     echo 'Error: ' . $imageObj["error"];
                     exit();
                 }
-                else {    
+                else {
                     // check media size limit
-                    if ($imageObj['size'] > MEDIA_SIZE_LIMIT) { 
-                        // can't be larger than xx MB
-                        $mbSize = (MEDIA_SIZE_LIMIT / 1048576);
-                        echo "Your image cannot be larger than $mbSize MBs";
+                    if (!$Media->checkImageSize($imageObj)) { 
+                        echo "Your image exceeded the image limit!";
                         exit();
                     }
     
                     // move media file to media folder
-                    $success = move_uploaded_file($imageObj["tmp_name"], '../' . MEDIA_DIR . $imageObj["name"]);
+                    $success = $Media->storeImage($imageObj);
                     if (!$success) {
                         echo "Image was not stored successfully. Try again";
                         exit();
@@ -134,15 +133,13 @@ class Blog {
                 }
                 else {    
                     // check media size limit
-                    if ($imageObj['size'] > MEDIA_SIZE_LIMIT) { 
-                        // can't be larger than xx MB
-                        $mbSize = (MEDIA_SIZE_LIMIT / 1048576);
-                        echo "Your image cannot be larger than $mbSize MBs";
+                    if ($Media->checkImageSize($imageObj)) { 
+                        echo "Your image exceeded the image limit!";
                         exit();
                     }
     
                     // move media file to media folder
-                    $success = move_uploaded_file($imageObj["tmp_name"], '../' . MEDIA_DIR . $imageObj["name"]);
+                    $success = $Media->storeImage($imageObj);
                     if (!$success) {
                         echo "Image was not stored successfully. Try again";
                         exit();

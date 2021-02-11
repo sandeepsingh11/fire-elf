@@ -29,6 +29,48 @@ class Media {
 
 
     /**
+     * validate the size of the uploading image.
+     * $uploadedMedia is the submitted image ($_FILES['image'])
+     * @param array $uploadedMedia
+     * @return boolean
+     */
+    public function checkImageSize($uploadedMedia) {
+        if ($uploadedMedia['size'] > MEDIA_SIZE_LIMIT) { 
+            // can't be larger than xx MB
+            $mbSize = (MEDIA_SIZE_LIMIT / 1048576);
+            echo "Your image cannot be larger than $mbSize MBs";
+            // exit();
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+    /**
+     * store an image locally that was uploaded from a form.
+     * $uploadedMedia is the submitted image ($_FILES['image'])
+     * @param array $uploadedMedia
+     * @return boolean
+     */
+    public function storeImage($uploadedMedia) {
+        $success = move_uploaded_file($uploadedMedia["tmp_name"], '../' . MEDIA_DIR . $uploadedMedia["name"]);
+        if (!$success) {
+            echo "Image was not stored successfully. Try again";
+            // exit();
+            return false;
+        }
+
+        // write to media json
+        $this->setMediaList($uploadedMedia["name"]);
+
+        return true;
+    }
+
+
+
+    /**
      * convert base64 image data into image data
      * to store locally, and replace base64 with
      * html img tags, under the context of 
@@ -71,7 +113,7 @@ class Media {
     
                     // write img data to new file
                     $mediaPath = '../' . MEDIA_DIR . $imageName . "." . $imgExt;
-                    $this->addMedia($mediaPath, $imgData);
+                    $this->writeMedia($mediaPath, $imgData, $imageName);
     
     
                     // replace base64 value with html img value
@@ -147,23 +189,38 @@ class Media {
 
 
     /**
-     * add media
+     * write media and store locally, update media json
      * @param string $mediaPath
      * @param mixed $mediaData
+     * @param string $imageName
      */
-    private function addMedia($mediaPath, $mediaData) {
+    private function writeMedia($mediaPath, $mediaData, $imageName) {
         // write img data to new file
         file_put_contents($mediaPath, $mediaData);
+
+        // write to media json
+        $this->setMediaList($imageName);
     }
     
 
 
     /**
-     * write a new json string into the 'media list' json object
-     * @param string $newMediaList
+     * prep and write a new json string into the 'media list' json object
+     * @param string $imageName
      */
-    public function setMediaList($newMediaList) {
-        $mediaList_json = json_encode($newMediaList, JSON_PRETTY_PRINT);
+    public function setMediaList($mediaName) {
+        $date = date('m-d-Y h:ia');
+
+        $newMediaInfo = array(
+            'name' => $mediaName, 
+            'uploaded_at' => $date
+        );
+
+        $mediaList = $this->getMediaList();
+        array_push($mediaList['media'], $newMediaInfo);
+
+
+        $mediaList_json = json_encode($mediaList, JSON_PRETTY_PRINT);
         file_put_contents($this->pageMediaPath, $mediaList_json);
     }
 }

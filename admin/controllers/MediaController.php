@@ -36,38 +36,22 @@ class MediaController extends Controller {
                 $uploadedMediaObj = $_FILES["media-upload"];
 
                 // check media size limit
-                if ($_FILES['media-upload']['size'] > MEDIA_SIZE_LIMIT) { 
-                    // can't be larger than xx MB
-                    $mbSize = (MEDIA_SIZE_LIMIT / 1048576);
-                    echo "Your image cannot be larger than $mbSize MBs";
+                $success = $this->mediaList->checkImageSize($uploadedMediaObj);
+                if (!$success) {
+                    echo "Exeeded image size limit!";
                     exit();
                 }
 
                 // move media file to media folder
-                $success = move_uploaded_file($uploadedMediaObj["tmp_name"], '../' . MEDIA_DIR . $uploadedMediaObj["name"]);
+                $success = $this->mediaList->storeImage($uploadedMediaObj);
                 if (!$success) {
                     echo "Image was not stored successfully. Try again";
                     exit();
                 }
-                else {
-                    // set values for media_list.json
-                    $date = date('m-d-Y h:ia');
-    
-                    $newMediaInfo = array(
-                        'name' => $uploadedMediaObj["name"], 
-                        'uploaded_at' => $date
-                    );
-    
-                    $mediaList = $this->mediaList->getMediaList();
-                    array_push($mediaList['media'], $newMediaInfo);
-                    
-                    // write new json
-                    $this->mediaList->setMediaList($mediaList);
-    
-                    
-                    // success! Redirect back to media page
-                    header('Location: /media-lib');
-                }
+
+                
+                // success! Redirect back to media page
+                header('Location: /media-lib');
             }
         }
     }
