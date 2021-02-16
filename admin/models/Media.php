@@ -5,19 +5,31 @@ class Media {
     private $mediaFilenameList;
     private $mediaList;
     private $pageMediaPath = './media_list.json';
+    public $phpFileUploadErrors;
 
     public function __construct()
     {
-        // get all media content
-        $this->mediaFilenameList = scandir('../' . MEDIA_DIR);
-
-        // remove '.' and '..', then re-index
-        unset($this->mediaFilenameList[0]);
-        unset($this->mediaFilenameList[1]);
-        $this->mediaFilenameList = array_values($this->mediaFilenameList);
-
         $temp = file_get_contents($this->pageMediaPath);
         $this->mediaList = json_decode($temp, true);
+
+        
+
+        // $_FILE error codes
+        // https://www.php.net/manual/en/features.file-upload.errors.php
+        $this->phpFileUploadErrors = array(
+            0 => 'There is no error, the file uploaded with success',
+            1 => 'The uploaded file exceeds ' . $this->getMediaSizeLimit() . ' MBs',
+            2 => 'The uploaded file exceeds ' . $this->getMediaSizeLimit() . ' MBs',
+            // 2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
+            3 => 'The uploaded file was only partially uploaded',
+            4 => 'No file was uploaded',
+            6 => 'Missing a temporary folder',
+            // 6 => 'Missing a temporary folder',
+            7 => 'Failed to store image, try again.',
+            // 7 => 'Failed to write file to disk.',
+            8 => 'Internal error, try again.',
+            // 8 => 'A PHP extension stopped the file upload.',
+        );
     }
 
 
@@ -37,13 +49,21 @@ class Media {
     public function checkImageSize($uploadedMedia) {
         if ($uploadedMedia['size'] > MEDIA_SIZE_LIMIT) { 
             // can't be larger than xx MB
-            $mbSize = (MEDIA_SIZE_LIMIT / 1048576);
-            echo "Your image cannot be larger than $mbSize MBs";
-            // exit();
+            
             return false;
         }
 
         return true;
+    }
+
+
+
+    /**
+     * get media size limit
+     * @return int
+     */
+    public function getMediaSizeLimit() {
+        return (MEDIA_SIZE_LIMIT / 1048576);
     }
 
 
@@ -57,8 +77,6 @@ class Media {
     public function storeImage($uploadedMedia) {
         $success = move_uploaded_file($uploadedMedia["tmp_name"], '../' . MEDIA_DIR . $uploadedMedia["name"]);
         if (!$success) {
-            echo "Image was not stored successfully. Try again";
-            // exit();
             return false;
         }
 

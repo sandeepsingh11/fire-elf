@@ -3,9 +3,11 @@
 class PageController extends Controller {
 
     private $pages;
+    private $Session;
 
     function __construct() {
         $this->pages = new Pages();    
+        $this->Session = new Session();    
     }
 
 
@@ -16,6 +18,9 @@ class PageController extends Controller {
     public function getAll() {
         $pageList = $this->pages->getPageList();
         $pageList = $pageList['pages'];
+
+        $messages_arr = $this->Session->getAllMessages();
+        Controller::prettyPrint($messages_arr);
         
         include_once __DIR__ . '/../views/pages.php';
     }
@@ -113,6 +118,8 @@ class PageController extends Controller {
         }
 
 
+        $messages_arr = $this->Session->getAllMessages();
+        Controller::prettyPrint($messages_arr);
 
         include_once __DIR__ . '/../views/pageEditor.php';
     }

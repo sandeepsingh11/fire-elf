@@ -13,6 +13,29 @@ define('ADMIN_URL', 'http://admin.fireelf.xyz/');
 define('MEDIA_DIR', 'admin/media/');
 define('MEDIA_URL', 'http://admin.fireelf.xyz/media/');
 
-// MEDIA_SIZE_LIMIT integer is in Bytes (5242880 B = 5 MB)
+// MEDIA_SIZE_LIMIT integer is in Bytes
 // https://www.convertunits.com/from/MB/to/B
-define('MEDIA_SIZE_LIMIT', 5242880);
+$upload_max_size = ini_get('upload_max_filesize');
+$upload_max_size = return_bytes($upload_max_size);
+define('MEDIA_SIZE_LIMIT', $upload_max_size);
+
+
+
+
+
+
+
+
+
+// get upload_max_filesize const from php ini. Must convert shorthand byte value
+// https://www.php.net/manual/en/function.ini-get.php#96996
+function return_bytes ($size_str)
+{
+    switch (substr ($size_str, -1))
+    {
+        case 'K': case 'k': return (int)$size_str * 1024;
+        case 'M': case 'm': return (int)$size_str * 1048576;
+        case 'G': case 'g': return (int)$size_str * 1073741824;
+        default: return $size_str;
+    }
+}

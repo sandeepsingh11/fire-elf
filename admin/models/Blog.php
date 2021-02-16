@@ -4,11 +4,14 @@ class Blog {
     
     private $blogList;
     private $blogListPath = './blog_list.json';
+    private $Session;
 
     public function __construct()
     {
         $temp = file_get_contents($this->blogListPath);
         $this->blogList = json_decode($temp, true);
+
+        $this->Session = new Session();
     }
 
 
@@ -33,7 +36,7 @@ class Blog {
      * get blog info
      * @param integer $id
      * @return array
-     * @return -1
+     * @return 0
      */
     public function getBlogInfo($id) {
         foreach ($this->blogList['blog'] as $blog) {
@@ -57,7 +60,7 @@ class Blog {
             }
         }
 
-        return -1;
+        return 0;
     }
 
 
@@ -82,27 +85,46 @@ class Blog {
         }
 
 
+        // convert quill delta to html
+        $lexer = new nadar\quill\Lexer($ops);
+        $ops = $lexer->render();
+
+        
+        // for errors, create form value array to pass to session
+        $formSession_arr = array(
+            'id' => $id,
+            'title' => $title,
+            'slug' => $slug,
+            'author' => $author,
+            'tags' => implode(',', $tags),
+            'ops' => $ops
+        );
+
+
+        
         // cover image handler
         $Media = new Media();
         if ($create) {
             if ($imageObj['tmp_name'] != '') {
                 // if an image was submitted, continue
-                if ($imageObj["error"]) {
+                if ($imageObj["error"] != 0) {
                     // if error exists
-                    echo 'Error: ' . $imageObj["error"];
+
+                    $uploadErrMessage = $this->mediaList->phpFileUploadErrors[$imageObj["error"]];
+                    $this->Session->setError($uploadErrMessage, $formSession_arr);
+                    
+                    header('Location: /blog/editor');
                     exit();
                 }
                 else {
-                    // check media size limit
-                    if (!$Media->checkImageSize($imageObj)) { 
-                        echo "Your image exceeded the image limit!";
-                        exit();
-                    }
-    
                     // move media file to media folder
                     $success = $Media->storeImage($imageObj);
                     if (!$success) {
-                        echo "Image was not stored successfully. Try again";
+
+                        $errorMessage = "Image was not stored successfully. Please try again";
+                        $this->Session->setError($errorMessage, $formSession_arr);
+                        
+                        header('Location: /blog/editor');
                         exit();
                     }
                 }
@@ -114,8 +136,12 @@ class Blog {
             // get existing blog entry
             $blogObj = $this->getBlogInfo($id);
 
-            if ($blogObj == -1) {
-                echo 'Error: blog id ' . $id . ' not found';
+            if ($blogObj == 0) {
+                
+                $errorMessage = "Blog Id:$id not found";
+                $this->Session->setError($errorMessage, $formSession_arr);
+                
+                header('Location: /blog/editor');
                 exit();
             }
             else if ($imageObj['tmp_name'] == '') {
@@ -126,22 +152,24 @@ class Blog {
                 // image names are diff
 
                 // if an image was submitted, continue
-                if ($imageObj["error"]) {
+                if ($imageObj["error"] != 0) {
                     // if error exists
-                    echo 'Error: ' . $imageObj["error"];
+
+                    $uploadErrMessage = $this->mediaList->phpFileUploadErrors[$imageObj["error"]];
+                    $this->Session->setError($uploadErrMessage, $formSession_arr);
+                    
+                    header('Location: /blog/editor');
                     exit();
                 }
-                else {    
-                    // check media size limit
-                    if ($Media->checkImageSize($imageObj)) { 
-                        echo "Your image exceeded the image limit!";
-                        exit();
-                    }
-    
+                else {
                     // move media file to media folder
                     $success = $Media->storeImage($imageObj);
                     if (!$success) {
-                        echo "Image was not stored successfully. Try again";
+                        
+                        $errorMessage = "Image was not stored successfully. Please try again";
+                        $this->Session->setError($errorMessage, $formSession_arr);
+                        
+                        header('Location: /blog/editor');
                         exit();
                     }
                 }
@@ -155,9 +183,8 @@ class Blog {
             $id = $this->nextBlogId();
         }
             
-        // convert quill delta to html
-        $lexer = new nadar\quill\Lexer($ops);
-        $htmlContent = $lexer->render();
+        // $ops is converted already, get html content
+        $htmlContent = $ops;
         
         // get current date time
         $date = date('m-d-Y h:ia');
@@ -220,6 +247,16 @@ class Blog {
 
         // write new json
         $this->setBlogList($this->blogList);
+
+        // set success message
+        if ($create) {
+            $successMessage = 'New blog created!';
+        }
+        else {
+            $successMessage = 'Blog updated!';
+        }
+        $this->Session->setSuccess($successMessage);
+
 
         
         // success! Redirect back to media page

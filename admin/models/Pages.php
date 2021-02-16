@@ -4,11 +4,14 @@ class Pages extends Model {
 
     private $pageList;
     private $pageListPath = './page_list.json';
+    private $Session;
 
     public function __construct()
     {
         $temp = file_get_contents($this->pageListPath);
         $this->pageList = json_decode($temp, true);
+
+        $this->Session = new Session();
     }
 
 
@@ -208,6 +211,15 @@ class Pages extends Model {
         // write to page_list
         $this->setPageList($pageList);
 
+
+        // set success message
+        if ($create) {
+            $successMessage = 'New page created!';
+        }
+        else {
+            $successMessage = 'Page updated!';
+        }
+        $this->Session->setSuccess($successMessage);
 
 
 
