@@ -97,8 +97,10 @@ class Pages extends Model {
             
 
             if ($create) {
-                // create new folder if non-existant
-                mkdir($pagePath);
+                if (!is_dir($pagePath)) {
+                    // create new folder if non-existant
+                    mkdir($pagePath);
+                }
             }
             
             // add filename to path
@@ -305,6 +307,82 @@ class Pages extends Model {
 
 
     /**
+     * delete a page
+     * @param int $pageId page id
+     * @return bool true if successful, false if fails
+     */
+    public function deletePage($pageId) {
+        if ($this->pageExists($pageId)) {
+            // if page does exist
+
+            $pageList = $this->getPageList();
+    
+
+            //
+            // ─── DELETE ENTRY FROM PAGE_LIST.json ─────────────────────────────────
+            //
+    
+            // loop through each page
+            for ($i = 0; $i < sizeof($pageList['pages']); $i++) {
+                if ($pageList['pages'][$i]['id'] == $pageId) {
+                    
+                    // get dir level
+                    $dirLevel = $pageList['pages'][$i]['parent_dir'];
+    
+                    // get file name
+                    $filename = $pageList['pages'][$i]['file'];
+    
+                    // delete entry from array
+                    unset($pageList['pages'][$i]);
+    
+                    // re-index array
+                    array_values($pageList['pages']);
+
+                    // update page_list.json
+                    $this->setPageList($pageList);
+
+                    break;
+                }
+            }
+            
+            // ─────────────────────────────────────────────────────────────────
+    
+    
+    
+    
+    
+            //
+            // ─── DELETE FILE ON CLIENT SIDE ──────────────────────────────────
+            //
+    
+            // if file is at root, dont add it to the file path
+            if ($dirLevel == '/') {
+                $dirLevel = '';
+            }
+    
+            // delete file
+            unlink('../' . CLIENT_PAGES_DIR . $dirLevel . $filename);
+
+            // ─────────────────────────────────────────────────────────────────
+    
+
+
+            $this->Session->setSuccess('Page deletion successful');
+
+            return true;
+        }
+        else {
+            // if page does not exist
+
+            $this->Session->setError('Page not found...');
+
+            return false;
+        }
+    }
+
+
+
+    /**
      * find the next page id to use from page_list.json
      * @return integer
      */
@@ -314,6 +392,26 @@ class Pages extends Model {
         $lastId = $this->pageList['pages'][$pageLen - 1]['id'];
 
         return ($lastId + 1);
+    }
+
+
+
+    /**
+     * check if page exists
+     * @param int $pageId
+     * @return bool
+     */
+    public function pageExists($pageId) {
+        $pageList = $this->getPageList();
+
+        // loop through each page
+        foreach ($pageList['pages'] as $page) {
+            if ($page['id'] == $pageId) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

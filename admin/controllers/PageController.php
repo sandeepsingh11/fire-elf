@@ -141,4 +141,20 @@ class PageController extends Controller {
         // write page values
         $this->pages->setPage($id, $title, $dir, $imgNames_str, $ops);
     }
+
+
+
+    /**
+     * delete a page
+     */
+    public function delete() {
+        if (isset($_POST['delete'])) {
+            $pageId = $_POST['delete-id'];
+
+            $this->pages->deletePage($pageId);
+        }
+        
+
+        header('Location: /pages');
+    }
 }

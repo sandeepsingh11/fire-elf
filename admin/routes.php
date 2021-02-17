@@ -5,6 +5,7 @@ $router->get('', 'IndexController@get');
 
 
 $router->get('pages', 'PageController@getAll');
+$router->post('pages', 'PageController@delete');
 $router->get('pages/editor', 'PageController@get');
 $router->post('pages/editor', 'PageController@post');
 
