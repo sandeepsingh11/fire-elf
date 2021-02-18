@@ -4,12 +4,13 @@ class Media {
 
     private $mediaFilenameList;
     private $mediaList;
-    private $pageMediaPath = './media_list.json';
+    private $mediaMediaPath = './media_list.json';
+    private $Session;
     public $phpFileUploadErrors;
 
     public function __construct()
     {
-        $temp = file_get_contents($this->pageMediaPath);
+        $temp = file_get_contents($this->mediaMediaPath);
         $this->mediaList = json_decode($temp, true);
 
         
@@ -30,6 +31,9 @@ class Media {
             8 => 'Internal error, try again.',
             // 8 => 'A PHP extension stopped the file upload.',
         );
+
+
+        $this->Session = new Session();
     }
 
 
@@ -80,8 +84,19 @@ class Media {
             return false;
         }
 
+        // prep json values
+        $date = date('m-d-Y h:ia');
+
+        $newMediaInfo = array(
+            'name' => $uploadedMedia['name'], 
+            'uploaded_at' => $date
+        );
+
+        $mediaList = $this->getMediaList();
+        array_push($mediaList['media'], $newMediaInfo);
+
         // write to media json
-        $this->setMediaList($uploadedMedia["name"]);
+        $this->setMediaList($mediaList);
 
         return true;
     }
@@ -216,21 +231,13 @@ class Media {
         // write img data to new file
         file_put_contents($mediaPath, $mediaData);
 
-        // write to media json
-        $this->setMediaList($imageName);
-    }
-    
 
 
-    /**
-     * prep and write a new json string into the 'media list' json object
-     * @param string $imageName
-     */
-    public function setMediaList($mediaName) {
+        // prep json values
         $date = date('m-d-Y h:ia');
 
         $newMediaInfo = array(
-            'name' => $mediaName, 
+            'name' => $imageName, 
             'uploaded_at' => $date
         );
 
@@ -238,7 +245,101 @@ class Media {
         array_push($mediaList['media'], $newMediaInfo);
 
 
+        // write to media json
+        $this->setMediaList($mediaList);
+    }
+
+
+
+    /**
+     * Check if the specified media exists
+     * @param string $mediaName name of the media file
+     * @return bool true if media exists, false if it does not exist
+     */
+    public function mediaExists($mediaName) {
+        $mediaList = $this->getMediaList();
+
+        // loop through each media entry
+        foreach ($mediaList['media'] as $media) {
+            if ($media['name'] == $mediaName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+
+
+    /**
+     * write to the 'media list' json object
+     * @param array $mediaList media_list.json var
+     */
+    public function setMediaList($mediaList) {
         $mediaList_json = json_encode($mediaList, JSON_PRETTY_PRINT);
-        file_put_contents($this->pageMediaPath, $mediaList_json);
+        file_put_contents($this->mediaMediaPath, $mediaList_json);
+    }
+
+
+
+    /**
+     * delete a media entry from local storage and media_list.json
+     * @param string $mediaName media name (filename)
+     * @return bool true if successful, false if fails
+     */
+    public function deleteMedia($mediaName) {
+        if ($this->mediaExists($mediaName)) {
+            // if media exists
+
+            $mediaList = $this->getMediaList();
+    
+
+            //
+            // ─── DELETE ENTRY FROM MEDIA_LIST.json ─────────────────────────────────
+            //
+    
+            // loop through each media
+            for ($i = 0; $i < sizeof($mediaList['media']); $i++) {
+                if ($mediaList['media'][$i]['name'] == $mediaName) {
+                    
+                    // delete entry from array
+                    unset($mediaList['media'][$i]);
+    
+                    // re-index array
+                    array_values($mediaList['media']);
+
+                    // update media_list.json
+                    $this->setMediaList($mediaList);
+
+                    break;
+                }
+            }
+            
+            // ─────────────────────────────────────────────────────────────────
+    
+    
+    
+    
+    
+            //
+            // ─── DELETE FILE ON CLIENT SIDE ──────────────────────────────────
+            //
+    
+            // delete file
+            unlink('../' . MEDIA_DIR . $mediaName);
+
+            // ─────────────────────────────────────────────────────────────────
+    
+
+
+            $this->Session->setSuccess('Media deletion successful.');
+
+            return true;
+        }
+        else {
+            // if media does not exist
+
+            $this->Session->setError('Media not found. Deletion failed.');
+        }
     }
 }

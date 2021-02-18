@@ -59,4 +59,20 @@ class MediaController extends Controller {
             }
         }
     }
+
+
+
+    /**
+     * handle media delete route
+     */
+    public function delete() {
+        if (isset($_POST['delete'])) {
+            $mediaId = $_POST['delete-id'];
+
+            $this->mediaList->deleteMedia($mediaId);
+        }
+        
+
+        header('Location: /media-lib');
+    }
 }

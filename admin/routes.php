@@ -13,6 +13,7 @@ $router->post('pages/editor', 'PageController@post');
 
 $router->get('media-lib', 'MediaController@get');
 $router->post('media-lib', 'MediaController@post');
+$router->post('media-lib/delete', 'MediaController@delete');
 
 
 

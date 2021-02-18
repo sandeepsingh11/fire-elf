@@ -28,6 +28,13 @@
         <div style="width: 500px;">
             <img src="<?php echo MEDIA_URL . $media['name'] ?>" alt="<?php echo $imageName ?>" loading="lazy">
             <a href="<?php echo MEDIA_URL . $media['name'] ?>" target="_blank" referrerpolicy="no-referrer"><?php echo $imageName ?></a>
+
+            <form action="/media-lib/delete" method="post">
+                    <input type="hidden" name="delete">
+                    <input type="hidden" name="delete-id" value="<?= $media['name'] ?>">
+
+                    <input type="submit" value="Delete">
+                </form>
         </div>
         <?php
     }
