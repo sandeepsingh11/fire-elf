@@ -18,5 +18,6 @@ $router->post('media-lib/delete', 'MediaController@delete');
 
 
 $router->get('blogs', 'BlogController@getAll');
+$router->post('blogs', 'BlogController@delete');
 $router->get('blog/editor', 'BlogController@get');
 $router->post('blog/editor', 'BlogController@post');

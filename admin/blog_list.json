@@ -1,6 +1,6 @@
 {
-    "blog": [
-        {
+    "blog": {
+        "0": {
             "id": 1,
             "title": "test",
             "slug": "test",
@@ -14,7 +14,7 @@
             "created_at": "01-31-2021 10:20pm",
             "updated_at": "02-03-2021 07:03pm"
         },
-        {
+        "1": {
             "id": 2,
             "title": "Test1",
             "slug": "test-1",
@@ -28,7 +28,7 @@
             "created_at": "02-03-2021 04:29pm",
             "updated_at": ""
         },
-        {
+        "2": {
             "id": 3,
             "title": "Test2",
             "slug": "test-2",
@@ -42,22 +42,7 @@
             "created_at": "02-03-2021 04:40pm",
             "updated_at": ""
         },
-        {
-            "id": 4,
-            "title": "Test 3",
-            "slug": "test-3",
-            "author": "admin",
-            "tags": [
-                "new",
-                " must read",
-                " lit"
-            ],
-            "cover": "toad and frog book snippet.png",
-            "content": "<h1><strong>Test 3<\/strong><\/h1><p><em>edited<\/em><\/p>",
-            "created_at": "02-07-2021 01:44pm",
-            "updated_at": "02-07-2021 01:50pm"
-        },
-        {
+        "4": {
             "id": 5,
             "title": "Blogu Testo",
             "slug": "bloggg",
@@ -70,5 +55,5 @@
             "created_at": "02-16-2021 05:59pm",
             "updated_at": "02-16-2021 05:59pm"
         }
-    ]
+    }
 }

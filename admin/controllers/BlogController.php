@@ -118,4 +118,20 @@ class BlogController extends Controller {
             $this->blog->setBlogData($id, $title, $slug, $author, $tags_arr, $imageObj, $ops);
         }
     }
+
+
+
+    /**
+     * handle blog delete request
+     */
+    public function delete() {
+        if (isset($_POST['delete'])) {
+            $blogId = $_POST['delete-id'];
+
+            $this->blog->deleteBlog($blogId);
+        }
+        
+
+        header('Location: /blogs');
+    }
 }

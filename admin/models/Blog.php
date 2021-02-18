@@ -266,6 +266,26 @@ class Blog {
 
 
     /**
+     * check if blog exists
+     * @param int $blogId
+     * @return bool
+     */
+    public function blogExists($blogId) {
+        $blogList = $this->getBlogList();
+
+        // loop through each blog
+        foreach ($blogList['blog'] as $blog) {
+            if ($blog['id'] == $blogId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+    /**
      * find the next blog id to use from blog_list.json
      * @return integer
      */
@@ -286,5 +306,57 @@ class Blog {
     private function setblogList($newBlogList) {
         $blogList_json = json_encode($newBlogList, JSON_PRETTY_PRINT);
         file_put_contents($this->blogListPath, $blogList_json);
+    }
+
+
+
+    /**
+     * delete a blog entry
+     * @param int $blogId the blog id
+     * @return bool true if successful, false if fails
+     */
+    public function deleteBlog($blogId) {
+        if ($this->blogExists($blogId)) {
+            // if blog does exist
+
+            $blogList = $this->getBlogList();
+    
+
+            //
+            // ─── DELETE ENTRY FROM BLOG_LIST.json ─────────────────────────────────
+            //
+    
+            // loop through each blog
+            for ($i = 0; $i < sizeof($blogList['blog']); $i++) {
+                if ($blogList['blog'][$i]['id'] == $blogId) {
+                    
+                    // delete entry from array
+                    unset($blogList['blog'][$i]);
+    
+                    // re-index array
+                    array_values($blogList['blog']);
+
+                    // update blog_list.json
+                    $this->setBlogList($blogList);
+
+                    break;
+                }
+            }
+            
+            // ─────────────────────────────────────────────────────────────────
+    
+
+
+            $this->Session->setSuccess('Blog deletion successful.');
+
+            return true;
+        }
+        else {
+            // if blog does not exist
+
+            $this->Session->setError('Blog not found. Deletion failed.');
+
+            return false;
+        }
     }
 }
