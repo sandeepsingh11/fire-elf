@@ -1,0 +1,137 @@
+{
+    "blog": [
+        {
+            "id": 1,
+            "title": "test",
+            "slug": "test",
+            "author": "me",
+            "tags": [
+                "hello",
+                "world"
+            ],
+            "cover": "Shoyu_Ramen.jpg",
+            "content": "<h1>~A<\/h1><p><em>edited<\/em><\/p>",
+            "created_at": "01-31-2021 10:20pm",
+            "updated_at": "02-03-2021 07:03pm"
+        },
+        {
+            "id": 2,
+            "title": "Test1",
+            "slug": "test-1",
+            "author": "me",
+            "tags": [
+                "big",
+                " new"
+            ],
+            "cover": "daru_hashida.png",
+            "content": "<p><strong>A<\/strong><\/p>",
+            "created_at": "02-03-2021 04:29pm",
+            "updated_at": ""
+        },
+        {
+            "id": 3,
+            "title": "Test2",
+            "slug": "test-2",
+            "author": "me",
+            "tags": [
+                "big",
+                "new"
+            ],
+            "cover": "nezuko_fanart.png",
+            "content": "<p><strong>A<\/strong><\/p>",
+            "created_at": "02-03-2021 04:40pm",
+            "updated_at": ""
+        },
+        {
+            "id": 5,
+            "title": "Blogu Testo",
+            "slug": "bloggg",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<h1>Iz blogg<\/h1>",
+            "created_at": "02-16-2021 05:59pm",
+            "updated_at": "02-16-2021 05:59pm"
+        },
+        {
+            "id": 6,
+            "title": "Blog 3?",
+            "slug": "blog-3",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>B L O G<\/p><p><br><\/p>",
+            "created_at": "02-20-2021 02:02pm",
+            "updated_at": ""
+        },
+        {
+            "id": 7,
+            "title": "Blog 3",
+            "slug": "blog-3",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>B L O G<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/src\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "02-20-2021 02:05pm",
+            "updated_at": ""
+        },
+        {
+            "id": 8,
+            "title": "Blog 4",
+            "slug": "blog-4",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>Look, some <strong>content<\/strong>!<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "02-20-2021 02:08pm",
+            "updated_at": "02-20-2021 02:36pm"
+        },
+        {
+            "id": 9,
+            "title": "Blog 5",
+            "slug": "blog-5",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>hello?<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/IzayaOrihara.png\" alt=\"IzayaOrihara\" class=\"img-responsive img-fluid\" \/><\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Tokoyami_Fumikage.png\" alt=\"Tokoyami_Fumikage\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "02-20-2021 02:11pm",
+            "updated_at": "02-20-2021 03:22pm"
+        },
+        {
+            "id": 10,
+            "title": "Blog 6",
+            "slug": "blog-6",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>OKIE DOKIE<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/IzayaOrihara.png\" alt=\"IzayaOrihara\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "02-20-2021 02:40pm",
+            "updated_at": ""
+        },
+        {
+            "id": 11,
+            "title": "Blog 8",
+            "slug": "blog-8",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "daru-hashida.png",
+            "content": "<p>gawr<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "02-20-2021 02:54pm",
+            "updated_at": "02-20-2021 03:23pm"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 <?php
 
-define('WEBSITE_NAME', 'Demo');
+define('WEBSITE_NAME', 'Fire Elf');
 
 define('TIMEZONE', 'America/New_York');
 date_default_timezone_set(TIMEZONE);
@@ -10,7 +10,7 @@ define('CLIENT_PAGES_DIR', 'client/public/pages/');
 
 define('ADMIN_URL', 'http://admin.fireelf.xyz/');
 
-define('MEDIA_DIR', 'admin/media/');
+define('MEDIA_DIR', 'admin/public/media/');
 define('MEDIA_URL', 'http://admin.fireelf.xyz/media/');
 
 // MEDIA_SIZE_LIMIT integer is in Bytes
