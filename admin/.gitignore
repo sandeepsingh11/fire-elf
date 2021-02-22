@@ -1,5 +1,5 @@
 node_modules
-# media_list.json
-# page_list.json
-# blog_list.json
-# public/media/
+media_list.json
+page_list.json
+blog_list.json
+public/media/
