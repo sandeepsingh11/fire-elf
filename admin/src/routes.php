@@ -4,6 +4,16 @@ $this->get('', 'IndexController@get');
 
 
 
+$this->get('register', 'RegisterController@get');
+$this->post('register', 'RegisterController@post');
+
+
+
+$this->get('login', 'LoginController@get');
+$this->post('login', 'LoginController@post');
+
+
+
 $this->get('pages', 'PageController@getAll');
 $this->post('pages', 'PageController@delete');
 $this->get('pages/editor', 'PageController@get');

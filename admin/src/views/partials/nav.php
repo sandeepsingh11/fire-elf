@@ -18,7 +18,10 @@
             <a href="/blogs">Blogs</a>
         </div>
         <div class="nav-item">
-            <a href="#">Profile</a>
+            <a href="/register">Register</a>
+        </div>
+        <div class="nav-item">
+            <a href="/login">Login</a>
         </div>
         <div class="nav-item">
             <a href="#">Settings</a>

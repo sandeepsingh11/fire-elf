@@ -1,0 +1,12 @@
+{
+    "elves": [
+        {
+            "username": "admin",
+            "pazz": "root"
+        },
+        {
+            "username": "user1",
+            "pazz": "user1"
+        }
+    ]
+}
