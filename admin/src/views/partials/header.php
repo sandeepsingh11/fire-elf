@@ -13,3 +13,10 @@
     <?php endforeach ?>
 </head>
 <body>
+    <div id="container">
+        <?php require __DIR__ . '/nav.php' ?>
+
+        <div id="content-container">
+            <?php foreach($this->messages as $message): ?>
+                <?= $message ?>
+            <?php endforeach ?>

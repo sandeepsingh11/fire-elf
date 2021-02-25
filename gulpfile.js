@@ -102,5 +102,5 @@ gulp.task('build-style', gulp.series(['sass', 'css']), function() {
 
 // watch sass files to compile on save
 gulp.task('sassy', function() {
-    gulp.watch(sassPath + '*.sass', gulp.series(['sass']));
+    gulp.watch(sassPath + '*.scss', gulp.series(['sass']));
 });

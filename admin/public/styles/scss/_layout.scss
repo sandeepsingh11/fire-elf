@@ -1,0 +1,39 @@
+#container {
+    display: flex;
+}
+
+#main-nav {
+    background-color: $black;
+    $color: $white;
+    width: $navWidth;
+    height: 100vh;
+
+    #logo-container {
+        margin-bottom: 30px;
+    }
+
+    .nav-item {
+
+        a {
+            display: block;
+            padding: 15px;
+            color: $primary;
+            text-decoration: none;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: $primary;
+
+            a {
+                color: $white;
+            }
+        }
+    }
+}
+
+#content-container {
+    background-color: $white;
+    color: $black;
+    width: $contentWidth;
+}

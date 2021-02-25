@@ -1,0 +1,20 @@
+.success-message {
+    padding: 10px;
+    background-color: $success;
+    color: $white;
+    text-align: center;
+}
+
+.notice-message {
+    padding: 10px;
+    background-color: $notice;
+    color: $white;
+    text-align: center;
+}
+
+.error-message {
+    padding: 10px;
+    background-color: $error;
+    color: $white;
+    text-align: center;
+}

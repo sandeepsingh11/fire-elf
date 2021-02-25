@@ -1,11 +1,4 @@
-<style>
-    img {
-        display: block;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-</style>
+<?php require __DIR__ . '/partials/header.php' ?>
 
 <h1>Media</h1>
 
@@ -36,3 +29,5 @@
         </div>
     <?php endforeach ?>
 </div>
+
+<?php require __DIR__ . '/partials/footer.php' ?>

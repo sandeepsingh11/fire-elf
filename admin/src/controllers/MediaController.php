@@ -5,6 +5,7 @@ class MediaController extends Controller {
     private $mediaList;
     private $Session;
 
+    public $message;
     public $media_arr;
 
 
@@ -20,9 +21,16 @@ class MediaController extends Controller {
         // get all media
         $this->media_arr = $this->mediaList->getAllMedia();
 
-        $messages_arr = $this->Session->getAllMessages();
-        Controller::prettyPrint($messages_arr);
+        // inject css
+        $css_arr = array(
+            $this->getStylesheet('normalize'),
+            $this->getStylesheet('main')
 
+        );
+        $this->css = $css_arr;
+
+        $this->page_title = 'Media';
+        $this->messages = $this->Session->getAllMessages();
         $this->view('media');
     }
 

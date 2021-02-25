@@ -56,19 +56,6 @@
             "updated_at": "02-16-2021 05:59pm"
         },
         {
-            "id": 6,
-            "title": "Blog 3?",
-            "slug": "blog-3",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<p>B L O G<\/p><p><br><\/p>",
-            "created_at": "02-20-2021 02:02pm",
-            "updated_at": ""
-        },
-        {
             "id": 7,
             "title": "Blog 3",
             "slug": "blog-3",
@@ -92,7 +79,7 @@
             "cover": "",
             "content": "<p>Look, some <strong>content<\/strong>!<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
             "created_at": "02-20-2021 02:08pm",
-            "updated_at": "02-20-2021 02:36pm"
+            "updated_at": "02-24-2021 12:26pm"
         },
         {
             "id": 9,
@@ -132,6 +119,19 @@
             "content": "<p>gawr<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
             "created_at": "02-20-2021 02:54pm",
             "updated_at": "02-20-2021 03:23pm"
+        },
+        {
+            "id": 12,
+            "title": "Toss The Dice",
+            "slug": "toss-the-dice",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>Dice!<\/p>",
+            "created_at": "02-24-2021 07:57pm",
+            "updated_at": ""
         }
     ]
 }

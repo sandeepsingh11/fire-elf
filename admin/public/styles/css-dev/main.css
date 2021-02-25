@@ -1,2 +1,57 @@
+* {
+  box-sizing: border-box; }
+
 body {
-  background-color: salmon; }
+  background-color: #ffeecf;
+  color: #2d2a32; }
+
+a {
+  text-decoration: none; }
+
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: center; }
+
+#container {
+  display: flex; }
+
+#main-nav {
+  background-color: #2d2a32;
+  width: 12vw;
+  height: 100vh; }
+  #main-nav #logo-container {
+    margin-bottom: 30px; }
+  #main-nav .nav-item a {
+    display: block;
+    padding: 15px;
+    color: #f06449;
+    text-decoration: none; }
+  #main-nav .nav-item:hover, #main-nav .nav-item:focus {
+    background-color: #f06449; }
+    #main-nav .nav-item:hover a, #main-nav .nav-item:focus a {
+      color: #ffeecf; }
+
+#content-container {
+  background-color: #ffeecf;
+  color: #2d2a32;
+  width: calc(100vw - 12vw); }
+
+.success-message {
+  padding: 10px;
+  background-color: #2a9d8f;
+  color: #ffeecf;
+  text-align: center; }
+
+.notice-message {
+  padding: 10px;
+  background-color: #7d98a1;
+  color: #ffeecf;
+  text-align: center; }
+
+.error-message {
+  padding: 10px;
+  background-color: #ad2a5f;
+  color: #ffeecf;
+  text-align: center; }

@@ -65,7 +65,9 @@ class Session extends Model {
 
         // get error message
         if ($this->errorExists()) {
-            $errorMessage = $_SESSION['error_message'];
+            $startTag = '<div class="error-message">';
+            $endTag = '</div>';
+            $errorMessage = $startTag . $_SESSION['error_message'] . $endTag;
         }
 
         // clear session
@@ -121,7 +123,9 @@ class Session extends Model {
 
         // get success message
         if ($this->noticeExists()) {
-            $noticeMessage = $_SESSION['notice_message'];
+            $startTag = '<div class="notice-message">';
+            $endTag = '</div>';
+            $noticeMessage = $startTag . $_SESSION['notice_message'] . $endTag;
         }
 
         // clear session
@@ -172,7 +176,9 @@ class Session extends Model {
 
         // get success message
         if ($this->successExists()) {
-            $successMessage = $_SESSION['success_message'];
+            $startTag = '<div class="success-message">';
+            $endTag = '</div>';
+            $successMessage = $startTag . $_SESSION['success_message'] . $endTag;
         }
 
         // clear session

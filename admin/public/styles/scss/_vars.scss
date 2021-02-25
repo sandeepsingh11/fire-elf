@@ -1,2 +1,14 @@
-// color
-$primary: salmon;
+// color scheme
+// https://coolors.co/f06449-2d2a32-ffeecf-7d98a1-2a9d8f
+$primary: #f06449;
+$black: #2d2a32;
+$white: #ffeecf;
+$notice: #7d98a1;
+$success: #2a9d8f;
+$error: #ad2a5f;
+
+
+
+// nav & content width
+$navWidth: 12vw;
+$contentWidth: calc(100vw - #{$navWidth});

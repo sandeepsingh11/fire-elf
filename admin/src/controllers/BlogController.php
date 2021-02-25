@@ -5,6 +5,7 @@ class BlogController extends Controller {
     private $blog;
     private $Session;
 
+    public $messages;
     public $blogs_arr;
     public $blogId;
     public $blogTitle;
@@ -19,7 +20,7 @@ class BlogController extends Controller {
     public function __construct()
     {
         $this->blog = new Blog();  
-        $this->Session = new Session();  
+        $this->Session = new Session();
     }
 
 
@@ -31,10 +32,16 @@ class BlogController extends Controller {
         // get all blog entries
         $this->blogs_arr = $this->blog->getAllBlogs();
 
-        $messages_arr = $this->Session->getAllMessages();
-        Controller::prettyPrint($messages_arr);
-        
+        // inject css
+        $css_arr = array(
+            $this->getStylesheet('normalize'),
+            $this->getStylesheet('main')
+
+        );
+        $this->css = $css_arr;
+
         $this->page_title = 'Blogs';
+        $this->messages = $this->Session->getAllMessages();
         $this->view('blogs');
     }
 
@@ -85,15 +92,15 @@ class BlogController extends Controller {
         }
 
 
-        $messages_arr = $this->Session->getAllMessages();
-        Controller::prettyPrint($messages_arr);
-
-
+        
 
 
         // inject css
         $css_arr = array(
-            'https://cdn.quilljs.com/1.3.6/quill.snow.css'
+            $this->getStylesheet('normalize'),
+            'https://cdn.quilljs.com/1.3.6/quill.snow.css',
+            $this->getStylesheet('main'),
+
         );
         $this->css = $css_arr;
         
@@ -111,6 +118,7 @@ class BlogController extends Controller {
 
         
         $this->page_title = 'Blog Editor';
+        $this->messages = $this->Session->getAllMessages();
         $this->view('blog-editor');
     }
 

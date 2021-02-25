@@ -6,6 +6,7 @@ class PageController extends Controller {
     private $Session;
     public $pageList;
 
+    public $messages;
     public $pageId;
     public $pageName;
     public $pageDir;
@@ -16,7 +17,7 @@ class PageController extends Controller {
 
     function __construct() {
         $this->pages = new Pages();    
-        $this->Session = new Session();    
+        $this->Session = new Session();
     }
 
 
@@ -27,13 +28,18 @@ class PageController extends Controller {
     public function getAll() {
         // get all pages
         $this->page_arr = $this->pages->getAllPages();
+        
+        // inject css
+        $css_arr = array(
+            $this->getStylesheet('normalize'),
+            $this->getStylesheet('main')
 
-        // get any error, notice, or success messages
-        $messages_arr = $this->Session->getAllMessages();
-        Controller::prettyPrint($messages_arr);
+        );
+        $this->css = $css_arr;
         
         // display the view
         $this->page_title = 'Pages';
+        $this->messages = $this->Session->getAllMessages();
         $this->view('pages');
     }
 
@@ -129,20 +135,15 @@ class PageController extends Controller {
             }
         }
 
-
-
-
-
-        $messages_arr = $this->Session->getAllMessages();
-        Controller::prettyPrint($messages_arr);
-
-        
         
         
         
         // inject css
         $css_arr = array(
-            'https://cdn.quilljs.com/1.3.6/quill.snow.css'
+            $this->getStylesheet('normalize'),
+            'https://cdn.quilljs.com/1.3.6/quill.snow.css',
+            $this->getStylesheet('main')
+
         );
         $this->css = $css_arr;
         
@@ -161,6 +162,7 @@ class PageController extends Controller {
         
         // get view
         $this->page_title = 'Page Editor';
+        $this->messages = $this->Session->getAllMessages();
         $this->view('page-editor');
     }
     

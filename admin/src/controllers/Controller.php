@@ -15,6 +15,22 @@ abstract class Controller {
         echo '<pre>'.print_r($array, true).'</pre>';
     }
 
+
+
+    /**
+     * Check if running a dev or prod server
+     * @return bool true if dev, false if prod
+     */
+    public function isDevServer() {
+        if (filter_var(ini_get('display_errors'),FILTER_VALIDATE_BOOLEAN)) {
+            return true;
+        } 
+        else {
+            return false;
+        }
+    }
+
+
     
     /**
      * Get an admin page. 
@@ -35,7 +51,12 @@ abstract class Controller {
      * @return string stylesheet url
      */ 
     protected function getStylesheet($css) {
-        return 'http://' . $_SERVER['HTTP_HOST'] . '/css/' . $css . '.css';
+        if ($this->isDevServer()) {
+            return 'http://' . $_SERVER['HTTP_HOST'] . '/styles/css-dev/' . $css . '.css';
+        }
+        else {
+            return 'http://' . $_SERVER['HTTP_HOST'] . '/styles/css/' . $css . '.css';
+        }
     }
 
 
