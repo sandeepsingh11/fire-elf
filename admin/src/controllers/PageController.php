@@ -3,9 +3,8 @@
 class PageController extends Controller {
 
     private $pages;
-    private $Session;
-    public $pageList;
 
+    public $pageList;
     public $messages;
     public $pageId;
     public $pageName;
@@ -15,9 +14,9 @@ class PageController extends Controller {
 
 
 
-    function __construct() {
+    function __construct($session) {
+        parent::__construct($session);
         $this->pages = new Pages();    
-        $this->Session = new Session();
     }
 
 

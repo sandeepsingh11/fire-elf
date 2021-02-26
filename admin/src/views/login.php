@@ -11,6 +11,8 @@
     <input type="password" name="pazz" id="pazz">
 
     <input type="submit" value="Login">
+
+    <input type="hidden" name="csrf-token" value="<?= $_SESSION['csrf_token'] ?>">
 </form>
 
 <?php require __DIR__ . '/partials/footer.php' ?>

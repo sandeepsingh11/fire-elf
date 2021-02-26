@@ -3,7 +3,6 @@
 class BlogController extends Controller {
 
     private $blog;
-    private $Session;
 
     public $messages;
     public $blogs_arr;
@@ -17,10 +16,10 @@ class BlogController extends Controller {
 
 
 
-    public function __construct()
+    public function __construct($session)
     {
-        $this->blog = new Blog();  
-        $this->Session = new Session();
+        parent::__construct($session);
+        $this->blog = new Blog();
     }
 
 

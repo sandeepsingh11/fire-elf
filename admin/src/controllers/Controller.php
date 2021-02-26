@@ -1,9 +1,17 @@
 <?php
 
 abstract class Controller {
+
+    protected $Session;
     protected $page_title;
     protected $css = [];
     protected $js = [];
+
+
+    public function __construct($session)
+    {
+        $this->Session = $session;
+    }
 
 
 

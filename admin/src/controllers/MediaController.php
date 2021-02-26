@@ -3,16 +3,15 @@
 class MediaController extends Controller {
 
     private $mediaList;
-    private $Session;
 
     public $message;
     public $media_arr;
 
 
 
-    function __construct() {
+    function __construct($session) {
+        parent::__construct($session);
         $this->mediaList = new Media();
-        $this->Session = new Session();
     }
 
 

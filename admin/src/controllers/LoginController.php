@@ -2,17 +2,16 @@
 
 class LoginController extends Controller {
 
-    private $Elves;
-    private $Session;
+    private $User;
 
     public $messages;
 
 
 
-    public function __construct()
+    public function __construct($session)
     {
-        $this->Elves = new Elves();
-        $this->Session = new Session();
+        parent::__construct($session);
+        $this->User = new User();
     }
 
 
@@ -50,8 +49,9 @@ class LoginController extends Controller {
         else {
             $username = $_POST['username'];
             $pazz = $_POST['pazz'];
+            $csrf = $_POST['csrf-token'];
 
-            if ($this->Elves->login($username, $pazz)) {
+            if ($this->User->login($username, $pazz, $csrf, $this->Session)) {
                 header('Location: /');
             }
             else {

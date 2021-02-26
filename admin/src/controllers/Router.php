@@ -116,7 +116,10 @@ class Router {
      * @return mixed call [controller]@[action]
      */
     public function callAction($controller, $action) {
-        $controller = new $controller();
+        // include Session model in all controllers
+        $session = new Session();
+
+        $controller = new $controller($session);
 
         if (! method_exists($controller, $action) ) {
             throw new Exception("{$controller} does not respond to the {$action} action.");

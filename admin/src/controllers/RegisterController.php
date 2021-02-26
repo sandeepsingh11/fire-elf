@@ -2,15 +2,14 @@
 
 class RegisterController extends Controller {
 
-    private $Elves;
-    private $Session;
+    private $User;
 
 
 
-    public function __construct()
+    public function __construct($session)
     {
-        $this->Elves = new Elves();
-        $this->Session = new Session();
+        parent::__construct($session);
+        $this->User = new User();
     }
 
 
@@ -47,7 +46,7 @@ class RegisterController extends Controller {
             $username = $_POST['username'];
             $pazz = $_POST['pazz'];
 
-            $this->Elves->register($username, $pazz);   
+            $this->User->register($username, $pazz);   
         }
     }
 }

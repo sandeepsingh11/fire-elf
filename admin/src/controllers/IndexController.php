@@ -2,14 +2,12 @@
 
 class IndexController extends Controller {
 
-    private $Session;
-
     public $messages;
 
 
 
-    function __construct() {
-        $this->Session = new Session();
+    function __construct($session) {
+        parent::__construct($session);
     }
 
 

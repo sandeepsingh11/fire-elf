@@ -4,22 +4,30 @@ class Session extends Model {
 
     /**
      * Session model structure
-     * ['error'] :bool
-     * - ['error_type'] :string
-     * - ['error_message'] :string
-     * - ['error_values'] :array
-     * 
-     * ['notice'] :bool
-     * - ['notice_message'] :string
-     * 
-     * ['success'] :bool
-     * - ['success_message'] :string
+     * - ['logged_in'] :bool
+     * - ['csrf_token'] :string
+     * - ['error'] :bool
+     * -- ['error_type'] :string
+     * -- ['error_message'] :string
+     * -- ['error_values'] :array
+     * - ['notice'] :bool
+     * -- ['notice_message'] :string
+     * -['success'] :bool
+     * -- ['success_message'] :string
      */
 
     public function __construct()
     {
         if (!isset($_SESSION)) {
             session_start();
+
+            if (!isset($_SESSION['logged_in'])) {
+                $_SESSION['logged_in'] = false;
+            }
+
+            if (empty($_SESSION['csrf_token'])) {
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            }
 
             if (!isset($_SESSION['error'])) {
                 $_SESSION['error'] = false;
@@ -40,11 +48,67 @@ class Session extends Model {
 
 
     /**
+     * Check if user is logged in
+     * 
+     * @return bool true if logged in, false if not
+     */
+    public function isLoggedIn() {
+        if ($_SESSION['logged_in'] == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+    /**
+     * Log into current session
+     */
+    public function login() {
+        if ($_SESSION['logged_in'] == false) {
+            $_SESSION['logged_in'] = true;
+        }
+    }
+
+
+
+    /**
+     * Log out of current session
+     */
+    public function logout() {
+        if ($_SESSION['logged_in'] == true) {
+            $_SESSION['logged_in'] = false;
+        }
+    }
+
+
+
+    /**
      * check if an error exists
      * @return bool
      */
     public function errorExists() {
         if ($_SESSION['error'] == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+    /**
+     * Validate the CSRF token
+     * 
+     * @param string $csrf the csrf token from a form
+     * 
+     * @return bool true if tokens match, false if mismatch
+     */
+    public function validateCSRF($csrf) {
+        if (hash_equals($_SESSION['csrf_token'], $csrf)) {
             return true;
         }
         else {
@@ -255,8 +319,6 @@ class Session extends Model {
 
             $_SESSION['success'] = false;
             unset($_SESSION['success_message']);
-
-            session_destroy();
         }
         else {
             switch ($sessionType) {
