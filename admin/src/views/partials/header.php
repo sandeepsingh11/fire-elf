@@ -17,6 +17,7 @@
         <?php require __DIR__ . '/nav.php' ?>
 
         <div id="content-container">
-            <?php foreach($this->messages as $message): ?>
+            <?php $messages = $this->Session->getAllMessages(); ?>
+            <?php foreach($messages as $message): ?>
                 <?= $message ?>
             <?php endforeach ?>

@@ -2,23 +2,24 @@
 
 class MediaController extends Controller {
 
-    private $mediaList;
-
-    public $message;
     public $media_arr;
 
 
 
-    function __construct($session) {
-        parent::__construct($session);
-        $this->mediaList = new Media();
+    public function __construct(...$models)
+    {
+        array_push($models, new Media());
+        parent::__construct($models);
+
+        // continue only if user is logged in
+        $this->isLoggedIn();
     }
 
 
 
     public function get() {
         // get all media
-        $this->media_arr = $this->mediaList->getAllMedia();
+        $this->media_arr = $this->Media->getAllMedia();
 
         // inject css
         $css_arr = array(
@@ -29,7 +30,6 @@ class MediaController extends Controller {
         $this->css = $css_arr;
 
         $this->page_title = 'Media';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('media');
     }
 
@@ -45,7 +45,7 @@ class MediaController extends Controller {
             if ($_FILES["media-upload"]["error"] != 0) {
                 // if error exists
 
-                $uploadErrMessage = $this->mediaList->phpFileUploadErrors[$_FILES['media-upload']['error']];
+                $uploadErrMessage = $this->Media->phpFileUploadErrors[$_FILES['media-upload']['error']];
                 $this->Session->setError($uploadErrMessage);
                 
                 header('Location: /media-lib');
@@ -56,7 +56,7 @@ class MediaController extends Controller {
                 
 
                 // move media file to media folder
-                $success = $this->mediaList->storeImage($uploadedMediaObj);
+                $success = $this->Media->storeImage($uploadedMediaObj);
                 if (!$success) {
 
                     $errorMessage = 'Image was not stored successfully. Please try again';
@@ -83,7 +83,7 @@ class MediaController extends Controller {
         if (isset($_POST['delete'])) {
             $mediaId = $_POST['delete-id'];
 
-            $this->mediaList->deleteMedia($mediaId);
+            $this->Media->deleteMedia($mediaId);
         }
         
 

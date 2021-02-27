@@ -1,6 +1,6 @@
 <?php
 
-class Pages extends Model {
+class Page extends Model {
 
     private $pageList;
     private $pageListPath = __DIR__ . '/../page_list.json';

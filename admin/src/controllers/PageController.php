@@ -2,10 +2,7 @@
 
 class PageController extends Controller {
 
-    private $pages;
-
     public $pageList;
-    public $messages;
     public $pageId;
     public $pageName;
     public $pageDir;
@@ -14,9 +11,13 @@ class PageController extends Controller {
 
 
 
-    function __construct($session) {
-        parent::__construct($session);
-        $this->pages = new Pages();    
+    public function __construct(...$models)
+    {
+        array_push($models, new Page());
+        parent::__construct($models);
+
+        // continue only if user is logged in
+        $this->isLoggedIn();
     }
 
 
@@ -26,7 +27,7 @@ class PageController extends Controller {
      */
     public function getAll() {
         // get all pages
-        $this->page_arr = $this->pages->getAllPages();
+        $this->page_arr = $this->Page->getAllPages();
         
         // inject css
         $css_arr = array(
@@ -38,7 +39,6 @@ class PageController extends Controller {
         
         // display the view
         $this->page_title = 'Pages';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('pages');
     }
 
@@ -61,7 +61,7 @@ class PageController extends Controller {
             $this->pageId = $_GET['id'];
 
             // get the according page json info
-            $this->pageList = $this->pages->getPageList();
+            $this->pageList = $this->Page->getPageList();
             $filename = '';
             foreach ($this->pageList['pages'] as $page) {
                 if ($_GET['id'] == $page['id']) {
@@ -89,14 +89,14 @@ class PageController extends Controller {
 
 
             // get <fireelf> content to edit
-            $this->quillBlock = $this->pages->getFireelfContent($pageContent);
+            $this->quillBlock = $this->Page->getFireelfContent($pageContent);
         }
 
 
 
         // get all pages' info (for the 'parent directory' dropdown in the editor)
 
-        $this->pageList = $this->pages->getPageList();
+        $this->pageList = $this->Page->getPageList();
         $this->pages_arr = [];
 
 
@@ -161,7 +161,6 @@ class PageController extends Controller {
         
         // get view
         $this->page_title = 'Page Editor';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('page-editor');
     }
     
@@ -180,7 +179,7 @@ class PageController extends Controller {
         $ops = $_POST['ops'];
 
         // write page values
-        $this->pages->setPage($id, $title, $dir, $imgNames_str, $ops);
+        $this->Page->setPage($id, $title, $dir, $imgNames_str, $ops);
     }
 
 
@@ -192,7 +191,7 @@ class PageController extends Controller {
         if (isset($_POST['delete'])) {
             $this->pageId = $_POST['delete-id'];
 
-            $this->pages->deletePage($this->pageId);
+            $this->Page->deletePage($this->pageId);
         }
         
 

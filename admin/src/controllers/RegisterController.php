@@ -2,14 +2,12 @@
 
 class RegisterController extends Controller {
 
-    private $User;
 
+    function __construct(...$models) {
+        parent::__construct($models);
 
-
-    public function __construct($session)
-    {
-        parent::__construct($session);
-        $this->User = new User();
+        // continue only if user is logged in
+        $this->isLoggedIn();
     }
 
 
@@ -24,7 +22,6 @@ class RegisterController extends Controller {
 
 
         $this->page_title = 'Register';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('register');
     }
 

@@ -2,9 +2,6 @@
 
 class BlogController extends Controller {
 
-    private $blog;
-
-    public $messages;
     public $blogs_arr;
     public $blogId;
     public $blogTitle;
@@ -16,10 +13,13 @@ class BlogController extends Controller {
 
 
 
-    public function __construct($session)
+    public function __construct(...$models)
     {
-        parent::__construct($session);
-        $this->blog = new Blog();
+        array_push($models, new Blog());
+        parent::__construct($models);
+
+        // continue only if user is logged in
+        $this->isLoggedIn();
     }
 
 
@@ -29,7 +29,7 @@ class BlogController extends Controller {
      */
     public function getAll() {
         // get all blog entries
-        $this->blogs_arr = $this->blog->getAllBlogs();
+        $this->blogs_arr = $this->Blog->getAllBlogs();
 
         // inject css
         $css_arr = array(
@@ -40,7 +40,6 @@ class BlogController extends Controller {
         $this->css = $css_arr;
 
         $this->page_title = 'Blogs';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('blogs');
     }
 
@@ -75,7 +74,7 @@ class BlogController extends Controller {
             // if editing an existing blog post, get values
             $this->blogId = $_GET['id'];
 
-            if ($blog_arr = $this->blog->getBlogInfo($this->blogId)) {
+            if ($blog_arr = $this->Blog->getBlogInfo($this->blogId)) {
                 $this->blogTitle = $blog_arr['title'];
                 $this->blogSlug = $blog_arr['slug'];
                 $this->blogAuthor = $blog_arr['author'];
@@ -117,7 +116,6 @@ class BlogController extends Controller {
 
         
         $this->page_title = 'Blog Editor';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('blog-editor');
     }
 
@@ -159,7 +157,7 @@ class BlogController extends Controller {
             $id = intval($_POST['id']);
             $ops = $_POST['ops'];
     
-            $this->blog->setBlogData($id, $title, $slug, $author, $tags_arr, $imageCover, $imageNames, $ops);
+            $this->Blog->setBlogData($id, $title, $slug, $author, $tags_arr, $imageCover, $imageNames, $ops);
         }
     }
 
@@ -172,7 +170,7 @@ class BlogController extends Controller {
         if (isset($_POST['delete'])) {
             $this->blogId = $_POST['delete-id'];
 
-            $this->blog->deleteBlog($this->blogId);
+            $this->Blog->deleteBlog($this->blogId);
         }
         
 

@@ -2,15 +2,12 @@
 
 class IndexController extends Controller {
 
-    protected $User;
 
-    public $messages;
+    function __construct(...$models) {
+        parent::__construct($models);
 
-
-
-    function __construct($session) {
-        parent::__construct($session);
-        $this->User = new User();
+        // continue only if user is logged in
+        $this->isLoggedIn();
     }
 
 
@@ -26,7 +23,6 @@ class IndexController extends Controller {
         
         
         $this->page_title = 'Home';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('index');
     }
 }

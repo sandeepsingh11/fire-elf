@@ -2,16 +2,9 @@
 
 class LoginController extends Controller {
 
-    private $User;
-
-    public $messages;
-
-
-
-    public function __construct($session)
-    {
-        parent::__construct($session);
-        $this->User = new User();
+    
+    function __construct(...$models) {
+        parent::__construct($models);
     }
 
 
@@ -27,7 +20,6 @@ class LoginController extends Controller {
 
 
         $this->page_title = 'Login';
-        $this->messages = $this->Session->getAllMessages();
         $this->view('login');
     }
 

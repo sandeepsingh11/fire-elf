@@ -119,7 +119,10 @@ class Router {
         // include Session model in all controllers
         $session = new Session();
 
-        $controller = new $controller($session);
+        // access current user
+        $user = new User();
+
+        $controller = new $controller($session, $user);
 
         if (! method_exists($controller, $action) ) {
             throw new Exception("{$controller} does not respond to the {$action} action.");
