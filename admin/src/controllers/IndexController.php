@@ -2,12 +2,15 @@
 
 class IndexController extends Controller {
 
+    protected $User;
+
     public $messages;
 
 
 
     function __construct($session) {
         parent::__construct($session);
+        $this->User = new User();
     }
 
 

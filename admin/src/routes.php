@@ -14,6 +14,10 @@ $this->post('login', 'LoginController@post');
 
 
 
+$this->get('logout', 'LogoutController@get');
+
+
+
 $this->get('pages', 'PageController@getAll');
 $this->post('pages', 'PageController@delete');
 $this->get('pages/editor', 'PageController@get');

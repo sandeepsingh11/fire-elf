@@ -25,6 +25,27 @@ class User  {
 
 
     /**
+     * Get user's username
+     * 
+     * @param int $userId the user's id
+     * 
+     * @return string the user's username, or '' if user not found
+     */
+    public function getUsername($userId) {
+        for ($i = 0; $i < sizeof($this->userList['user']); $i++) {
+            if ($this->userList['user'][$i]['id'] == $userId) {
+                // id match
+
+                return $this->userList['user'][$i]['username'];
+            }
+        }
+
+        return '';
+    }
+
+
+
+    /**
      * Register a new user
      * 
      * @param string $username the username
@@ -33,10 +54,14 @@ class User  {
      * @return bool true if successful, false on failure
      */
     public function register($username, $password) {
+        // get next id
+        $id = $this->getNextId();
+
         // hash password
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $newUser_arr = array(
+            'id' => $id,
             'username' => $username,
             'pazz' => $hashed
         );
@@ -51,13 +76,28 @@ class User  {
         if ($this->setUserList($this->userList)) {
             $this->Session->setSuccess('New user created!');
 
-            header('Location: /register');
+            header('Location: /login');
         }
         else {
             $this->Session->setError('New user could not be created, please try again', $username);
 
             header('Location: /register');
         }
+    }
+
+
+
+    /**
+     * Get the next available user id
+     * 
+     * @return int the new id
+     */
+    public function getNextId() {
+        $userLen = sizeof($this->userList['user']);
+
+        $lastId = $this->userList['user'][$userLen - 1]['id'];
+
+        return ($lastId + 1);
     }
 
 
@@ -90,7 +130,7 @@ class User  {
                 if (password_verify($password, $this->userList['user'][$i]['pazz'])) {
                     // pazz match
 
-                    $this->Session->login();
+                    $this->Session->login($this->userList['user'][$i]['id']);
                     $this->Session->setSuccess('Login successful!');
 
                     return true;
@@ -106,6 +146,15 @@ class User  {
         $this->Session->setError('Username or password do not match.');
 
         return false;
+    }
+
+
+
+    /**
+     * Log out of the current session
+     */
+    public function logout() {
+        $this->Session->logout();
     }
 
 

@@ -5,6 +5,7 @@ class Session extends Model {
     /**
      * Session model structure
      * - ['logged_in'] :bool
+     * - ['user_id'] :int
      * - ['csrf_token'] :string
      * - ['error'] :bool
      * -- ['error_type'] :string
@@ -65,11 +66,20 @@ class Session extends Model {
 
     /**
      * Log into current session
+     * 
+     * @param int $userId the user's id
      */
-    public function login() {
+    public function login($userId) {
         if ($_SESSION['logged_in'] == false) {
             $_SESSION['logged_in'] = true;
+            $_SESSION['user_id'] = $userId;
         }
+    }
+
+
+
+    public function getUserId() {
+        return $_SESSION['user_id'];
     }
 
 
@@ -80,6 +90,7 @@ class Session extends Model {
     public function logout() {
         if ($_SESSION['logged_in'] == true) {
             $_SESSION['logged_in'] = false;
+            unset($_SESSION['user_id']);
         }
     }
 

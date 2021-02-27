@@ -27,7 +27,7 @@
             <a href="#">Settings</a>
         </div>
         <div class="nav-item">
-            <a href="#">Logout</a>
+            <a href="/logout">Logout</a>
         </div>
     </div>
 </nav>
