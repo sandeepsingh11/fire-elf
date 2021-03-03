@@ -27,6 +27,25 @@ var quillEle = new Quill('#editor', {
                 return new Promise((resolve, reject) => {
                     // push new img name
                     fileObj_arr.push(file.name);
+                    
+                    // *** delay required ***
+                    // jquery will not find new img node without delay
+                    setTimeout(() => {
+                        var imgs = $('#editor img');
+                        
+                        // get current time as string
+                        // used as a unique identifier for new editor images
+                        var date = new Date();
+                        var now = 
+                            date.getHours().toString() + 
+                            date.getMinutes().toString() + 
+                            date.getSeconds().toString();
+
+                        // new entries pushed to the front of array, so [0]
+                        // set img-name attr
+                        $(imgs[0]).attr('data-img-name', file.name);
+                        
+                    }, 250);
                 });
             }
         }
