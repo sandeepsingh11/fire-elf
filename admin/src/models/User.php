@@ -27,11 +27,17 @@ class User  {
     /**
      * Get user's username
      * 
-     * @param int $userId the user's id
+     * @param int $userId the user's id. If 0, get the user in session.
      * 
      * @return string the user's username, or '' if user not found
      */
-    public function getUsername($userId) {
+    public function getUsername($userId = 0) {
+        if ($userId == 0) {
+            // get current user's id
+            $userId = $this->Session->getUserId();
+        }
+
+
         for ($i = 0; $i < sizeof($this->userList['user']); $i++) {
             if ($this->userList['user'][$i]['id'] == $userId) {
                 // id match
@@ -41,6 +47,28 @@ class User  {
         }
 
         return '';
+    }
+
+
+
+    /**
+     * Get all users
+     * 
+     * @return array an array of users
+     */
+    public function getAllUsers() {
+        $users = [];
+        
+        // get each user's values
+        foreach ($this->userList['user'] as $user) {
+            $user = array (
+                'id' => $user['id'],
+                'username' => $user['username']
+            );
+            array_push($users, $user);
+        }
+
+        return $users;
     }
 
 
@@ -60,13 +88,13 @@ class User  {
         // hash password
         $hashed = password_hash($password, PASSWORD_DEFAULT);
 
-        $newUser_arr = array(
+        $newuser = array(
             'id' => $id,
             'username' => $username,
             'pazz' => $hashed
         );
         
-        array_push($this->userList['user'], $newUser_arr);
+        array_push($this->userList['user'], $newuser);
 
 
 
@@ -155,6 +183,95 @@ class User  {
      */
     public function logout() {
         $this->Session->logout();
+    }
+
+
+
+    /**
+     * Update the user's username.
+     * 
+     * @param int $userID the user's id
+     * @param string $newUsername the new username passed
+     * 
+     * @return bool true on success, false on failure
+     */
+    public function updateUsername($userId, $newUsername) {
+        for ($i = 0; $i < sizeof($this->userList['user']); $i++) {
+            if ($this->userList['user'][$i]['id'] == $userId) {
+                $this->userList['user'][$i]['username'] = $newUsername;
+
+                // update json
+                $this->setUserList($this->userList);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+    /**
+     * Update the user's password.
+     * 
+     * @param int $userID the user's id
+     * @param string $currentPw the current password passed
+     * @param string $newPw the new password passed
+     * 
+     * @return bool true on success, false on failure
+     */
+    public function updatePassword($userId, $currentPw, $newPw) {
+        for ($i = 0; $i < sizeof($this->userList['user']); $i++) {
+            if ($this->userList['user'][$i]['id'] == $userId) {
+                
+                // check if current passwords match
+                if (password_verify($currentPw, $this->userList['user'][$i]['pazz'])) {
+                    // pass match
+
+                    // hash new password
+                    $hashed = password_hash($newPw, PASSWORD_DEFAULT);
+
+                    $this->userList['user'][$i]['pazz'] = $hashed;
+
+                    // update json
+                    $this->setUserList($this->userList);
+
+                    return true;
+                }
+                else {
+                    // pass mismatch
+                    return false;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+
+    /**
+     * Delete a user.
+     * 
+     * @param int $userId ID of the user to be deleted
+     * 
+     * @return bool true on success, false on failure
+     */
+    public function deleteUser($userId) {
+        for ($i = 0; $i < sizeof($this->userList['user']); $i++) {
+            if ($this->userList['user'][$i]['id'] == $userId) {
+                // delete entry from array
+                array_splice($this->userList['user'], $i, 1);
+
+                // update json
+                $this->setUserList($this->userList);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

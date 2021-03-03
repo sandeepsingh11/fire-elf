@@ -78,8 +78,18 @@ class Session extends Model {
 
 
 
+    /**
+     * Get the user id in the current session.
+     * 
+     * @return int user id, or -1 if unset.
+     */
     public function getUserId() {
-        return $_SESSION['user_id'];
+        if (isset($_SESSION['user_id'])) {
+            return $_SESSION['user_id'];
+        }
+        else {
+            return -1;
+        }
     }
 
 

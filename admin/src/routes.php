@@ -35,3 +35,9 @@ $this->get('blogs', 'BlogController@getAll');
 $this->post('blogs', 'BlogController@delete');
 $this->get('blog/editor', 'BlogController@get');
 $this->post('blog/editor', 'BlogController@post');
+
+
+
+$this->get('settings', 'SettingsController@get');
+$this->post('settings/update', 'SettingsController@update');
+$this->post('settings/delete', 'SettingsController@delete');

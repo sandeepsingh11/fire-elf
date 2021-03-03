@@ -21,7 +21,7 @@
             <a href="/register">Register</a>
         </div>
         <div class="nav-item">
-            <a href="#">Settings</a>
+            <a href="/settings">Settings</a>
         </div>
         <div class="nav-item">
             <a href="/logout">Logout</a>
