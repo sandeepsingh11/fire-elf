@@ -39,7 +39,7 @@ class MediaController extends Controller {
             // if nothing uploaded
             $this->Session->setError('You did not upload anything!');
             
-            header('Location: /media-lib');
+            $this->redirect('media-lib');
         }
         else {
             if ($_FILES["media-upload"]["error"] != 0) {
@@ -48,28 +48,38 @@ class MediaController extends Controller {
                 $uploadErrMessage = $this->Media->phpFileUploadErrors[$_FILES['media-upload']['error']];
                 $this->Session->setError($uploadErrMessage);
                 
-                header('Location: /media-lib');
+                $this->redirect('media-lib');
             }
             else {
                 // get media object
                 $uploadedMediaObj = $_FILES["media-upload"];
+
+
+                // check uploaded media type
+                if (!$this->Media->fileTypeAllowed($uploadedMediaObj['tmp_name'])) {
+                    
+                    $errorMessage = 'That file type is not allowed. Please try again.';
+                    $this->Session->setError($errorMessage);
+
+                    $this->redirect('media-lib');
+                    exit();
+                }
                 
 
                 // move media file to media folder
-                $success = $this->Media->storeImage($uploadedMediaObj);
-                if (!$success) {
+                if (!$this->Media->storeImage($uploadedMediaObj)) {
 
-                    $errorMessage = 'Image was not stored successfully. Please try again';
+                    $errorMessage = 'Image was not stored successfully. Please try again.';
                     $this->Session->setError($errorMessage);
 
-                    header('Location: /media-lib');
+                    $this->redirect('media-lib');
                     exit();
                 }
 
                 
                 // success! Redirect back to media page
                 $this->Session->setSuccess('Media uploaded!');
-                header('Location: /media-lib');
+                $this->redirect('media-lib');
             }
         }
     }

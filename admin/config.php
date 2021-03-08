@@ -13,6 +13,11 @@ define('ADMIN_URL', 'http://admin.fireelf.xyz/');
 define('MEDIA_DIR', 'admin/public/media/');
 define('MEDIA_URL', 'http://admin.fireelf.xyz/media/');
 
+define('ALLOWED_MEDIA_TYPES', [
+    IMAGETYPE_PNG,
+    IMAGETYPE_JPEG
+]);
+
 // MEDIA_SIZE_LIMIT integer is in Bytes
 // https://www.convertunits.com/from/MB/to/B
 $upload_max_size = ini_get('upload_max_filesize');

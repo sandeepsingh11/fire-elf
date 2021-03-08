@@ -83,6 +83,28 @@ class Media {
 
 
     /**
+     * Check uploaded media's type
+     * 
+     * @param string $filename name of the uploaded file
+     * 
+     * @return bool true if file type is allowed, false if not allowed
+     */
+    public function fileTypeAllowed($filename) {
+        // get uploaded file type
+        $uploadedFileType = exif_imagetype($filename);
+
+        // check (compare) uploaded file type with allowed types
+        if (in_array($uploadedFileType, ALLOWED_MEDIA_TYPES)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+    /**
      * store an image locally that was uploaded from a form.
      * $uploadedMedia is the submitted image ($_FILES['image'])
      * @param array $uploadedMedia
