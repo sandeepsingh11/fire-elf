@@ -6,7 +6,7 @@
 <!-- upload media -->
 <form action="media-lib" method="post" enctype="multipart/form-data">
     <label for="media-upload">Upload media</label>
-    <input type="file" name="media-upload" id="media-upload">
+    <input type="file" name="media-upload[]" id="media-upload" multiple>
 
     <input type="submit" value="Upload">
 </form>

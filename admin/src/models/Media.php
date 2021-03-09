@@ -6,8 +6,11 @@ class Media {
     private $mediaList;
     private $mediaPath = __DIR__ . '/../media_list.json';
     private $Session;
-    public $phpFileUploadErrors;
 
+    public $uploadErrors;
+
+
+    
     public function __construct()
     {
         $temp = file_get_contents($this->mediaPath);
@@ -17,7 +20,7 @@ class Media {
 
         // $_FILE error codes
         // https://www.php.net/manual/en/features.file-upload.errors.php
-        $this->phpFileUploadErrors = array(
+        $this->uploadErrors = array(
             0 => 'There is no error, the file uploaded with success',
             1 => 'The uploaded file exceeds ' . $this->getMediaSizeLimit() . ' MBs',
             2 => 'The uploaded file exceeds ' . $this->getMediaSizeLimit() . ' MBs',
@@ -38,7 +41,20 @@ class Media {
 
 
 
-    public function getMediaList() {
+    /**
+     * Get the media_list json array
+     * 
+     * @param bool $refresh set true to re-read latest json 
+     * (otherwise it uses the json from Media's model contructor)
+     * 
+     * @return array decoded json array
+     */
+    public function getMediaList($refresh = false) {
+        if ($refresh) {
+            $temp = file_get_contents($this->mediaPath);
+            $this->mediaList = json_decode($temp, true);
+        }
+
         return $this->mediaList;
     }
 
@@ -105,14 +121,17 @@ class Media {
 
 
     /**
-     * store an image locally that was uploaded from a form.
-     * $uploadedMedia is the submitted image ($_FILES['image'])
-     * @param array $uploadedMedia
-     * @return boolean
+     * Move image (uploaded from form) from temp dir to media dir.
+     * 
+     * @param array $uploadedMedia the submitted image object ($_FILES['image'])
+     * 
+     * @return bool true if successful, false on failure
      */
     public function storeImage($uploadedMedia) {
-        $success = move_uploaded_file($uploadedMedia["tmp_name"], __DIR__ . '/../../../' . MEDIA_DIR . $uploadedMedia["name"]);
-        if (!$success) {
+        $newFilePath = __DIR__ . '/../../../' . MEDIA_DIR . $uploadedMedia["name"];
+        
+        // move / store image
+        if (!move_uploaded_file($uploadedMedia["tmp_name"], $newFilePath)) {
             return false;
         }
 
@@ -123,8 +142,8 @@ class Media {
             'name' => $uploadedMedia['name'], 
             'uploaded_at' => $date
         );
-
-        $mediaList = $this->getMediaList();
+        
+        $mediaList = $this->getMediaList(true);
         array_push($mediaList['media'], $newMediaInfo);
 
         // write to media json

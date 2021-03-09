@@ -34,54 +34,83 @@ class MediaController extends Controller {
     }
 
 
+
+    /**
+     * Rearrage $_FILES array from input's multiple upload option.
+     * Code snippet from: 
+     * https://www.php.net/manual/en/features.file-upload.multiple.php#106565
+     * 
+     * @param array $arr $_FILES input array
+     * 
+     * @return array rearranged input array
+     */
+    function rearrange( $arr ) {
+        foreach( $arr as $key => $all ){
+            foreach( $all as $i => $val ){
+                $new[$i][$key] = $val;   
+            }   
+        }
+
+        return $new;
+    }
+    
+
+
     public function post() {
-        if (!isset($_FILES["media-upload"])) {
-            // if nothing uploaded
-            $this->Session->setError('You did not upload anything!');
+        // rearrange $_FILES array
+        $files = $this->rearrange($_FILES["media-upload"]);
+        
+
+        // check if user uploaded a file
+        if ($files[0]['error'] == 4) {
+            $errorMessage = $this->Media->uploadErrors[$files[0]['error']];
+            $this->Session->setError($errorMessage);
             
             $this->redirect('media-lib');
         }
-        else {
-            if ($_FILES["media-upload"]["error"] != 0) {
-                // if error exists
 
-                $uploadErrMessage = $this->Media->phpFileUploadErrors[$_FILES['media-upload']['error']];
-                $this->Session->setError($uploadErrMessage);
+
+        // loop through each uploaded file
+        foreach ($files as $file) {
+            if ($file["error"] != 0) {
+                // if error exists
+    
+                $errorMessage = $file['name'] . ': ' . $this->Media->uploadErrors[$file['error']];
+                $this->Session->setError($errorMessage);
                 
                 $this->redirect('media-lib');
+                exit();
             }
             else {
-                // get media object
-                $uploadedMediaObj = $_FILES["media-upload"];
-
+                // no errors, continue
 
                 // check uploaded media type
-                if (!$this->Media->fileTypeAllowed($uploadedMediaObj['tmp_name'])) {
+                if (!$this->Media->fileTypeAllowed($file['tmp_name'])) {
                     
-                    $errorMessage = 'That file type is not allowed. Please try again.';
+                    $errorMessage = $file['name'] . ': That file type is not allowed. Please try again.';
                     $this->Session->setError($errorMessage);
-
+    
                     $this->redirect('media-lib');
                     exit();
                 }
                 
-
+    
                 // move media file to media folder
-                if (!$this->Media->storeImage($uploadedMediaObj)) {
-
-                    $errorMessage = 'Image was not stored successfully. Please try again.';
+                if (!$this->Media->storeImage($file)) {
+    
+                    $errorMessage = $file['name'] . ': Image was not stored successfully. Please try again.';
                     $this->Session->setError($errorMessage);
-
+    
                     $this->redirect('media-lib');
                     exit();
                 }
-
-                
-                // success! Redirect back to media page
-                $this->Session->setSuccess('Media uploaded!');
-                $this->redirect('media-lib');
             }
         }
+
+
+        // success! Redirect back to media page
+        $this->Session->setSuccess('Media uploaded!');
+        $this->redirect('media-lib');
     }
 
 
