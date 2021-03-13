@@ -10,6 +10,7 @@ class BlogController extends Controller {
     public $blogTags;
     public $blogCover;
     public $blogContent;
+    public $mediaList;
 
 
 
@@ -74,7 +75,7 @@ class BlogController extends Controller {
             // if editing an existing blog post, get values
             $this->blogId = $_GET['id'];
 
-            if ($blog_arr = $this->Blog->getBlogInfo($this->blogId)) {
+            if ($blog_arr = $this->Blog->getBlog($this->blogId)) {
                 $this->blogTitle = $blog_arr['title'];
                 $this->blogSlug = $blog_arr['slug'];
                 $this->blogAuthor = $blog_arr['author'];
@@ -90,7 +91,16 @@ class BlogController extends Controller {
         }
 
 
-        
+
+        // get all media
+        $Media = new Media();
+        $this->mediaList = $Media->getAllMedia();
+
+        // get media names and convert to string
+        $this->mediaList = array_map(function($media) {
+            return $media['name'];
+        }, $this->mediaList);
+        $this->mediaList = implode(',', $this->mediaList);
 
 
         // inject css

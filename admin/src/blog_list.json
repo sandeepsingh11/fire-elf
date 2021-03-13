@@ -132,6 +132,19 @@
             "content": "<p>Dice!<\/p>",
             "created_at": "02-24-2021 07:57pm",
             "updated_at": ""
+        },
+        {
+            "id": 13,
+            "title": "Modal Example",
+            "slug": "modal-example",
+            "author": "",
+            "tags": [
+                ""
+            ],
+            "cover": "",
+            "content": "<p>Image via modal upload: <img src=\"http:\/\/admin.fireelf.xyz\/media\/deidara-edo_tensei.png\" alt=\"deidara-edo_tensei\" class=\"img-responsive img-fluid\" \/><img src=\"http:\/\/admin.fireelf.xyz\/media\/Aizawa.Shouta.png\" alt=\"Aizawa\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "03-13-2021 02:18pm",
+            "updated_at": ""
         }
     ]
 }

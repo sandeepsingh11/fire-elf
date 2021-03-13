@@ -13,13 +13,16 @@ var toolbarOptions = [
     ['clean']
 ];
 
+
+
 // Initialize quill-image-uploader module
 Quill.register("modules/imageUploader", ImageUploader);
 var fileObj_arr = [];
 
 
 
-var quillEle = new Quill('#editor', {
+// initialize quill editor
+var quill = new Quill('#editor', {
     modules: {
         toolbar: toolbarOptions,
         imageUploader: {
@@ -55,6 +58,68 @@ var quillEle = new Quill('#editor', {
 
 
 
+// handle image upload within the media lib modal
+var modalUploadEle = document.getElementById('media-lib-upload');
+modalUploadEle.addEventListener('change', (e) => {
+    var file = modalUploadEle.files[0];
+    var reader = new FileReader();
+
+    // triggered after readAsDataURL()
+    reader.onloadend = () => {
+        addImage(reader.result);
+    }
+
+    reader.readAsDataURL(file);
+
+    // push new img name
+    fileObj_arr.push(file.name);
+});
+
+
+
+// handle media library modal.
+// triggered when quill's image button is clicked
+function mediaLib() {
+    // get media list value
+    var mediaListEle = document.getElementById('media-list');
+    var mediaList = mediaListEle.value;
+
+    // split string to array
+    mediaList = mediaList.split(',');
+
+    // prepare media url
+    var url = window.location;
+    var mediaUrl = url.protocol + '//' + url.host + '/media/';
+    
+    // populate modal
+    var mediaLib = document.getElementById('media-lib');
+
+    mediaList.forEach(media => {
+        var imgNode = document.createElement('img');
+        imgNode.setAttribute('src', mediaUrl + media);
+        imgNode.style.width = '75px';
+        imgNode.addEventListener('click', (e) => {addImage(e.target.src)})
+        mediaLib.appendChild(imgNode);
+    });
+}
+
+
+
+// add image (from upload or media lib) to quill editor
+function addImage(imgUrl) {
+    // get quill cursor location
+    var range = quill.getSelection();
+
+    // insert to editor
+    // * range could be null when user uploads and image
+    // (if they have not clicked in the editor before, the cursor has not been set)
+    quill.insertEmbed((range) ? range.index : 0, 'image', imgUrl);
+}
+
+// register quill image listener
+var toolbar = quill.getModule('toolbar');
+toolbar.addHandler('image', mediaLib);
+
 
 
 // on form submit, get quill delta (ops),
@@ -64,7 +129,7 @@ $('#form').submit(function(e)  {
 
 
     // get quill delta
-    var delta = quillEle.getContents();
+    var delta = quill.getContents();
     var delta_json = JSON.stringify(delta);
     delta_json = delta_json.replace(/'/g, '&#39;'); // convert "'"
 
