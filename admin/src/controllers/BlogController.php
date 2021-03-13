@@ -118,7 +118,6 @@ class BlogController extends Controller {
         $js_arr = array(
             'https://code.jquery.com/jquery-3.5.1.min.js',
             'https://cdn.quilljs.com/1.3.6/quill.min.js',
-            'https://unpkg.com/quill-image-uploader@1.2.2/dist/quill.imageUploader.min.js',
             $this->getScript('quilljs-handler')
         );
         $this->js = $js_arr;

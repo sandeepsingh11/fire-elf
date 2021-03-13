@@ -28,11 +28,22 @@
 
 
       <input type="hidden" name="id" id="id" value="<?= $this->pageId ?>">
+      <input type="hidden" name="media-list" id="media-list" value="<?= $this->mediaList; ?>">
       
       
       
       <input type="submit" value="Update">
     </form>
+
+
+    <!-- media lib modal -->
+    <div id="media-lib-modal">
+        <form id="media-lib-modal-form">
+            <input type="file" name="media-lib-upload" id="media-lib-upload">
+        </form>
+
+        <div id="media-lib" style="display: flex; flex-wrap: wrap;"></div>
+    </div>
 
     
     <a href="/pages">Back to Pages</a>

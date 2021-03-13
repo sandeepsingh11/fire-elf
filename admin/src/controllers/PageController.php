@@ -8,6 +8,7 @@ class PageController extends Controller {
     public $pageDir;
     public $page_arr;
     public $quillBlock;
+    public $mediaList;
 
 
 
@@ -134,6 +135,18 @@ class PageController extends Controller {
             }
         }
 
+
+
+        // get all media
+        $Media = new Media();
+        $this->mediaList = $Media->getAllMedia();
+
+        // get media names and convert to string
+        $this->mediaList = array_map(function($media) {
+            return $media['name'];
+        }, $this->mediaList);
+        $this->mediaList = implode(',', $this->mediaList);
+
         
         
         
@@ -152,7 +165,6 @@ class PageController extends Controller {
         $js_arr = array(
             'https://code.jquery.com/jquery-3.5.1.min.js',
             'https://cdn.quilljs.com/1.3.6/quill.min.js',
-            'https://unpkg.com/quill-image-uploader@1.2.2/dist/quill.imageUploader.min.js',
             $this->getScript('quilljs-handler')
         );
         $this->js = $js_arr;
