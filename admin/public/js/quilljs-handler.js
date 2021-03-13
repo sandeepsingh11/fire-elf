@@ -29,9 +29,47 @@ var quill = new Quill('#editor', {
 
 
 
+// ===== prepare media library modal =====
+
+// set 'X' button to exit modal
+var closeBtn = document.getElementById('modal-close');
+closeBtn.addEventListener('click', () => {
+    var modal = document.getElementById('media-lib-modal');
+    modal.classList.remove('show');
+    modal.classList.add('hide');
+});
+
+// get media list value
+var mediaListEle = document.getElementById('media-list');
+var mediaList = mediaListEle.value;
+
+// split string to array
+mediaList = mediaList.split(',');
+
+// prepare media url
+var url = window.location;
+var mediaUrl = url.protocol + '//' + url.host + '/media/';
+
+// populate modal
+var mediaLibEle = document.getElementById('media-lib');
+
+mediaList.forEach(media => {
+    var imgNode = document.createElement('img');
+
+    imgNode.classList.add('media-lib-img');
+    imgNode.setAttribute('src', mediaUrl + media);
+    imgNode.addEventListener('click', (e) => {addImage(e.target.src)})
+
+    mediaLibEle.appendChild(imgNode);
+});
+
+// ===== =====
+
+
+
 // handle image upload within the media lib modal
 var modalUploadEle = document.getElementById('media-lib-upload');
-modalUploadEle.addEventListener('change', (e) => {
+modalUploadEle.addEventListener('change', () => {
     var file = modalUploadEle.files[0];
     var reader = new FileReader();
 
@@ -40,6 +78,7 @@ modalUploadEle.addEventListener('change', (e) => {
         addImage(reader.result);
     }
 
+    // convert to base64
     reader.readAsDataURL(file);
 
     // push new img name
@@ -51,27 +90,17 @@ modalUploadEle.addEventListener('change', (e) => {
 // handle media library modal.
 // triggered when quill's image button is clicked
 function mediaLib() {
-    // get media list value
-    var mediaListEle = document.getElementById('media-list');
-    var mediaList = mediaListEle.value;
+    var modal = document.getElementById('media-lib-modal');
+    var displayState = modal.className;
 
-    // split string to array
-    mediaList = mediaList.split(',');
-
-    // prepare media url
-    var url = window.location;
-    var mediaUrl = url.protocol + '//' + url.host + '/media/';
-    
-    // populate modal
-    var mediaLib = document.getElementById('media-lib');
-
-    mediaList.forEach(media => {
-        var imgNode = document.createElement('img');
-        imgNode.setAttribute('src', mediaUrl + media);
-        imgNode.style.width = '75px';
-        imgNode.addEventListener('click', (e) => {addImage(e.target.src)})
-        mediaLib.appendChild(imgNode);
-    });
+    if (displayState == 'hide') {
+        modal.classList.remove('hide');
+        modal.classList.add('show');
+    }
+    else {
+        modal.classList.remove('show');
+        modal.classList.add('hide');
+    }
 }
 
 
@@ -85,7 +114,14 @@ function addImage(imgUrl) {
     // * range could be null when user uploads and image
     // (if they have not clicked in the editor before, the cursor has not been set)
     quill.insertEmbed((range) ? range.index : 0, 'image', imgUrl);
+
+    // close modal after image insert
+    var modal = document.getElementById('media-lib-modal');
+    modal.classList.remove('show');
+    modal.classList.add('hide');
 }
+
+
 
 // register quill image listener
 var toolbar = quill.getModule('toolbar');

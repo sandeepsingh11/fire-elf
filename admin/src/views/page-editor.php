@@ -37,12 +37,17 @@
 
 
     <!-- media lib modal -->
-    <div id="media-lib-modal">
-        <form id="media-lib-modal-form">
-            <input type="file" name="media-lib-upload" id="media-lib-upload">
-        </form>
+    <div id="media-lib-modal" class="hide">
+      <div class="modal-header-container">
+        <h3 id="modal-header">Media Library</h3>
+        <span id="modal-close">X</span>
+      </div>
 
-        <div id="media-lib" style="display: flex; flex-wrap: wrap;"></div>
+      <form id="media-lib-modal-form">
+        <input type="file" name="media-lib-upload" id="media-lib-upload">
+      </form>
+
+      <div id="media-lib"></div>
     </div>
 
     
