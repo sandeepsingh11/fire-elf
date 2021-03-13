@@ -33,12 +33,13 @@ class Blog {
 
 
     /**
-     * get blog info
-     * @param integer $id
-     * @return array
-     * @return 0
+     * Get blog information
+     * 
+     * @param int $id the blog id
+     * 
+     * @return array|bool return blog assoc array on success, false on failure
      */
-    public function getBlogInfo($id) {
+    public function getBlog($id) {
         foreach ($this->blogList['blog'] as $blog) {
             if ($blog['id'] == $id) {
                 // convert tags arr to string
@@ -60,7 +61,7 @@ class Blog {
             }
         }
 
-        return 0;
+        return false;
     }
 
 
@@ -151,9 +152,7 @@ class Blog {
             // update - if existing cover image is different than the submitted image, update
             
             // get existing blog entry
-            $blogObj = $this->getBlogInfo($id);
-
-            if ($blogObj == 0) {
+            if (!$blogObj = $this->getBlog($id)) {
                 
                 $errorMessage = "Blog Id:$id not found";
                 $this->Session->setError($errorMessage, $formSession_arr);
