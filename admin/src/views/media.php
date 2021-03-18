@@ -13,10 +13,10 @@
 
 
 <!-- display all media -->
-<div style="display: flex; flex-wrap: wrap;">
+<div id="media-list-container">
     <?php foreach ($this->media_arr as $media): ?>
         <?php $imageName = explode(".", $media['name'])[0]; ?>
-        <div style="width: 500px;">
+        <div class="media-item">
             <img src="<?= MEDIA_URL . $media['name'] ?>" alt="<?= $imageName ?>" loading="lazy">
             <a href="<?= MEDIA_URL . $media['name'] ?>" target="_blank" referrerpolicy="no-referrer"><?= $imageName ?></a>
 

@@ -38,7 +38,13 @@
     width: $contentWidth;
 }
 
+#page-list-container,
 #blog-list-container {
     /* responsiveness */
     overflow-x: auto;
+}
+
+#media-list-container {
+    display: flex;
+    flex-wrap: wrap;
 }

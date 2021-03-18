@@ -53,9 +53,14 @@ table {
   color: #2d2a32;
   width: calc(100vw - 12vw); }
 
+#page-list-container,
 #blog-list-container {
   /* responsiveness */
   overflow-x: auto; }
+
+#media-list-container {
+  display: flex;
+  flex-wrap: wrap; }
 
 .ql-toolbar {
   background-color: #f16c52; }
@@ -98,6 +103,15 @@ table {
       #media-lib-modal #media-lib .media-lib-img:focus, #media-lib-modal #media-lib .media-lib-img:hover {
         cursor: pointer;
         transform: translateY(-10px); }
+
+.media-item {
+  width: calc(100% / 3);
+  height: 400px;
+  margin-bottom: 50px; }
+  .media-item img {
+    height: 100%; }
+  .media-item a {
+    word-wrap: anywhere; }
 
 .success-message {
   padding: 10px;
