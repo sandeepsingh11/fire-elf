@@ -1,3 +1,26 @@
+// quilljs override
+
+.ql-toolbar {
+    background-color: scale-color($color: $primary, $lightness: 5%);
+}
+
+#editor {
+    background-color: #f3f3f3;
+    padding: 10px;
+}
+
+// end quilljs override
+
+
+
+
+
+
+
+
+
+// modules
+
 #media-lib-modal {
     position: fixed;
     top: 50%;

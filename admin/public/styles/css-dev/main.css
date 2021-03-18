@@ -14,6 +14,21 @@ img {
   object-fit: cover;
   object-position: center; }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left; }
+  table tr:nth-child(even) {
+    background-color: #ffbd44; }
+  table th,
+  table td {
+    border-collapse: inherit;
+    padding: 6px; }
+  table th {
+    background-color: #37343d;
+    color: white;
+    padding: 10px 6px; }
+
 #container {
   display: flex; }
 
@@ -37,6 +52,17 @@ img {
   background-color: #ffeecf;
   color: #2d2a32;
   width: calc(100vw - 12vw); }
+
+#blog-list-container {
+  /* responsiveness */
+  overflow-x: auto; }
+
+.ql-toolbar {
+  background-color: #f16c52; }
+
+#editor {
+  background-color: #f3f3f3;
+  padding: 10px; }
 
 #media-lib-modal {
   position: fixed;

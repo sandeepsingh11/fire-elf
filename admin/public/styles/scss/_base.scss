@@ -19,3 +19,27 @@ img {
     object-fit: cover;
     object-position: center;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    tr {
+        &:nth-child(even) {
+            background-color: scale-color($color: $white, $lightness: -30%);
+        }  
+    }
+
+    th,
+    td {
+        border-collapse: inherit;
+        padding: 6px;
+    }
+
+    th {
+        background-color: scale-color($color: $black, $lightness: 5%);
+        color: white;
+        padding: 10px 6px;
+    }
+}

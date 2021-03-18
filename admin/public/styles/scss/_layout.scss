@@ -37,3 +37,8 @@
     color: $black;
     width: $contentWidth;
 }
+
+#blog-list-container {
+    /* responsiveness */
+    overflow-x: auto;
+}
