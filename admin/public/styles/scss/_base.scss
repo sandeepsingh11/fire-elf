@@ -45,15 +45,22 @@ table {
 }
 
 input,
-label {
+label,
+select {
     display: block;
 }
 
 input[type='text'],
-input[type='password'] {
+input[type='password'],
+select {
+    margin: 5px 0;
     border: 1px solid black;
     border-radius: 2px;
     padding: 3px 4px;
+}
+
+label {
+    margin: 0;
 }
 
 input[type='submit'] {
@@ -69,6 +76,14 @@ input[type='submit'] {
         background-color: $primary;
         color: white;
         border-color: $primary;
+        cursor: pointer;
+    }
+}
+
+input[type='file'] {
+    margin: 5px 0;
+
+    &:hover {
         cursor: pointer;
     }
 }

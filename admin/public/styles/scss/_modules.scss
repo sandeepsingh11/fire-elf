@@ -1,12 +1,18 @@
 // quilljs override
 
 .ql-toolbar {
-    background-color: scale-color($color: $primary, $lightness: 5%);
+    background-color: scale-color($color: $primary, $lightness: 13%);
+    // background-color: scale-color($color: $primary, $saturation: 5%);
 }
 
 #editor {
     background-color: #f3f3f3;
+    height: 500px;
     padding: 10px;
+
+    img {
+        width: 50%;
+    }
 }
 
 // end quilljs override

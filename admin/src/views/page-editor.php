@@ -1,6 +1,5 @@
 <?php require __DIR__ . '/partials/header.php' ?>
     <h1>Page Editor</h1>
-    <h3>Fire Elf</h3>
 
     <form id="form" action="/pages/editor" method="POST">      
       <label for="title">Page title:</label>

@@ -30,14 +30,20 @@ table {
     padding: 10px 6px; }
 
 input,
-label {
+label,
+select {
   display: block; }
 
 input[type='text'],
-input[type='password'] {
+input[type='password'],
+select {
+  margin: 5px 0;
   border: 1px solid black;
   border-radius: 2px;
   padding: 3px 4px; }
+
+label {
+  margin: 0; }
 
 input[type='submit'] {
   background-color: transparent;
@@ -53,10 +59,16 @@ input[type='submit'] {
     border-color: #f06449;
     cursor: pointer; }
 
+input[type='file'] {
+  margin: 5px 0; }
+  input[type='file']:hover {
+    cursor: pointer; }
+
 #container {
   display: flex; }
 
 #main-nav {
+  position: fixed;
   background-color: #2d2a32;
   width: 12vw;
   height: 100vh; }
@@ -75,7 +87,9 @@ input[type='submit'] {
 #content-container {
   background-color: #ffeecf;
   color: #2d2a32;
-  width: calc(100vw - 12vw); }
+  width: calc(100vw - 12vw);
+  margin-left: 12vw;
+  padding: 5px; }
 
 #page-list-container,
 #blog-list-container {
@@ -87,11 +101,14 @@ input[type='submit'] {
   flex-wrap: wrap; }
 
 .ql-toolbar {
-  background-color: #f16c52; }
+  background-color: #f27861; }
 
 #editor {
   background-color: #f3f3f3;
+  height: 500px;
   padding: 10px; }
+  #editor img {
+    width: 50%; }
 
 #media-lib-modal {
   position: fixed;

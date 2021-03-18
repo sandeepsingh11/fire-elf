@@ -3,6 +3,7 @@
 }
 
 #main-nav {
+    position: fixed;
     background-color: $black;
     $color: $white;
     width: $navWidth;
@@ -36,6 +37,8 @@
     background-color: $white;
     color: $black;
     width: $contentWidth;
+    margin-left: $navWidth;
+    padding: 5px;
 }
 
 #page-list-container,

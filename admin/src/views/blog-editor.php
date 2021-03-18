@@ -1,7 +1,6 @@
 <?php require __DIR__ . '/partials/header.php' ?>
 
 <h1>Editor</h1>
-<h3>Fire Elf</h3>
 
 <form id="form" action="/blog/editor" method="POST" enctype="multipart/form-data">
     <!-- title -->
