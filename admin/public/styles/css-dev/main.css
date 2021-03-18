@@ -29,6 +29,30 @@ table {
     color: white;
     padding: 10px 6px; }
 
+input,
+label {
+  display: block; }
+
+input[type='text'],
+input[type='password'] {
+  border: 1px solid black;
+  border-radius: 2px;
+  padding: 3px 4px; }
+
+input[type='submit'] {
+  background-color: transparent;
+  color: black;
+  margin: 5px 0;
+  border: 1px solid #333;
+  border-radius: 2px;
+  padding: 5px 8px;
+  transition: background-color 0.2s; }
+  input[type='submit']:hover {
+    background-color: #f06449;
+    color: white;
+    border-color: #f06449;
+    cursor: pointer; }
+
 #container {
   display: flex; }
 
@@ -107,7 +131,7 @@ table {
 .media-item {
   width: calc(100% / 3);
   height: 400px;
-  margin-bottom: 50px; }
+  margin-bottom: 60px; }
   .media-item img {
     height: 100%; }
   .media-item a {
