@@ -12,7 +12,7 @@ class LogoutController extends Controller {
 
 
 
-    public function get() {
+    public function logout() {
         $this->User->logout();
 
         $this->Session->setSuccess('Logout successful!');

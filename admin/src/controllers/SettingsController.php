@@ -17,7 +17,7 @@ class SettingsController extends Controller {
 
 
 
-    public function get() {
+    public function index() {
         // inject css
         $this->css = array(
             $this->getStylesheet('normalize'),
@@ -33,7 +33,7 @@ class SettingsController extends Controller {
 
 
 
-    public function update () {
+    public function updateSettings() {
         $userId = $_POST['user-id'];
 
         if (isset($_POST['update-username'])) {
@@ -65,7 +65,7 @@ class SettingsController extends Controller {
 
 
 
-    public function delete () {
+    public function deleteSettings() {
         if (isset($_POST['delete-user'])) {
             $userId = $_POST['user-id'];
 

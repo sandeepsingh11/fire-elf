@@ -10,7 +10,7 @@ class LoginController extends Controller {
 
 
 
-    public function get() {
+    public function index() {
         // inject css
         $this->css = array(
             $this->getStylesheet('normalize'),
@@ -25,7 +25,7 @@ class LoginController extends Controller {
 
 
 
-    public function post() {
+    public function login() {
         if ( ($_POST['username'] == '') || ($_POST['pazz'] == '') ) {
             if ($_POST['username'] != '') {
                 $username = $_POST['username'];

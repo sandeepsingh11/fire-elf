@@ -26,7 +26,7 @@ class PageController extends Controller {
     /**
      * Display all pages
      */
-    public function getAll() {
+    public function index() {
         // get all pages
         $this->page_arr = $this->Page->getAllPages();
         
@@ -49,7 +49,7 @@ class PageController extends Controller {
      * Display the editor for adding a new page,
      * or editing an existing page (?id=title)
      */
-    public function get() {
+    public function editor() {
         // page values
         $this->pageId = -1; // -1 if creating a new page (no existing page id / name)
         $this->pageName = '';
@@ -182,7 +182,7 @@ class PageController extends Controller {
      * add the new page, from the quilljs wysiwyg
      * and update page_list.json
      */
-    public function post() {
+    public function updatePage() {
         // get values to write the new file
         $id = intval($_POST['id']);
         $title = $_POST['title'];
@@ -199,7 +199,7 @@ class PageController extends Controller {
     /**
      * delete a page
      */
-    public function delete() {
+    public function deletePage() {
         if (isset($_POST['delete'])) {
             $this->pageId = $_POST['delete-id'];
 

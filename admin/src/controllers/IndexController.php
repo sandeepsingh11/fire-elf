@@ -12,7 +12,7 @@ class IndexController extends Controller {
 
 
 
-    public function get() {
+    public function index() {
         // inject css
         $css_arr = array(
             $this->getStylesheet('normalize'),

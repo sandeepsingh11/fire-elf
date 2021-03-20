@@ -1,43 +1,43 @@
 <?php
 
-$this->get('', 'IndexController@get');
+$this->get('', 'IndexController@index');
 
 
 
-$this->get('register', 'RegisterController@get');
-$this->post('register', 'RegisterController@post');
+$this->get('register', 'RegisterController@index');
+$this->post('register', 'RegisterController@register');
 
 
 
-$this->get('login', 'LoginController@get');
-$this->post('login', 'LoginController@post');
+$this->get('login', 'LoginController@index');
+$this->post('login', 'LoginController@login');
 
 
 
-$this->get('logout', 'LogoutController@get');
+$this->get('logout', 'LogoutController@logout');
 
 
 
-$this->get('pages', 'PageController@getAll');
-$this->post('pages', 'PageController@delete');
-$this->get('pages/editor', 'PageController@get');
-$this->post('pages/editor', 'PageController@post');
+$this->get('pages', 'PageController@index');
+$this->post('pages', 'PageController@deletePage');
+$this->get('pages/editor', 'PageController@editor');
+$this->post('pages/editor', 'PageController@updatePage');
 
 
 
-$this->get('media-lib', 'MediaController@get');
-$this->post('media-lib', 'MediaController@post');
-$this->post('media-lib/delete', 'MediaController@delete');
+$this->get('media-lib', 'MediaController@index');
+$this->post('media-lib', 'MediaController@addMedia');
+$this->post('media-lib/delete', 'MediaController@deleteMedia');
 
 
 
-$this->get('blogs', 'BlogController@getAll');
-$this->post('blogs', 'BlogController@delete');
-$this->get('blog/editor', 'BlogController@get');
-$this->post('blog/editor', 'BlogController@post');
+$this->get('blogs', 'BlogController@index');
+$this->post('blogs', 'BlogController@deleteBlog');
+$this->get('blog/editor', 'BlogController@editor');
+$this->post('blog/editor', 'BlogController@updateBlog');
 
 
 
-$this->get('settings', 'SettingsController@get');
-$this->post('settings/update', 'SettingsController@update');
-$this->post('settings/delete', 'SettingsController@delete');
+$this->get('settings', 'SettingsController@index');
+$this->post('settings/update', 'SettingsController@updateSettings');
+$this->post('settings/delete', 'SettingsController@deleteSettings');

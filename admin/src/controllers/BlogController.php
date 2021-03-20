@@ -28,7 +28,7 @@ class BlogController extends Controller {
     /**
      * get page to display all blog posts
      */
-    public function getAll() {
+    public function index() {
         // get all blog entries
         $this->blogs_arr = $this->Blog->getAllBlogs();
 
@@ -50,7 +50,7 @@ class BlogController extends Controller {
      * Could be to create a new blog post or
      * update an existing blog post (?id=1)
      */
-    public function get() {
+    public function editor() {
         // blog values
         $this->blogId = -1; // -1 if creating a new blog (no existing blog id)
         $this->blogTitle = '';
@@ -133,7 +133,7 @@ class BlogController extends Controller {
     /**
      * create or update blog data
      */
-    public function post() {
+    public function updateBlog() {
         // check for submitted data
         if ( ($_POST['title'] == '') || ($_POST['slug'] == '') || (!isset($_POST['ops'])) ) {
             // if req input is not filled
@@ -175,7 +175,7 @@ class BlogController extends Controller {
     /**
      * handle blog delete request
      */
-    public function delete() {
+    public function deleteBlog() {
         if (isset($_POST['delete'])) {
             $this->blogId = $_POST['delete-id'];
 

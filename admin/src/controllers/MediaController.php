@@ -17,7 +17,7 @@ class MediaController extends Controller {
 
 
 
-    public function get() {
+    public function index() {
         // get all media
         $this->media_arr = $this->Media->getAllMedia();
 
@@ -56,7 +56,7 @@ class MediaController extends Controller {
     
 
 
-    public function post() {
+    public function addMedia() {
         // rearrange $_FILES array
         $files = $this->rearrange($_FILES["media-upload"]);
         
@@ -118,7 +118,7 @@ class MediaController extends Controller {
     /**
      * handle media delete route
      */
-    public function delete() {
+    public function deleteMedia() {
         if (isset($_POST['delete'])) {
             $mediaId = $_POST['delete-id'];
 
