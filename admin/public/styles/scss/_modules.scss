@@ -25,6 +25,73 @@
 
 
 
+
+// general classes
+
+.flex {
+    display: flex;
+}
+
+.flex-form {
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.form {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    width: 50%;
+    max-width: 350px;
+    background-color: scale-color($color: $white, $lightness: 25%);
+    border-radius: $bRadius;
+    box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.75);
+}
+
+.form-secondary {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: revert;
+    width: 45%;
+    max-width: none;
+    margin-bottom: 50px;
+}
+
+.form-title-container {
+    background-color: $primary;
+    color: #eee;
+    padding: 20px;
+
+    .form-title {
+        margin: 0;
+    }
+}
+
+.form-body-container {
+    padding: 20px;
+}
+
+.input-err {
+    background-color: $error;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: $bRadius;
+    padding: 8px;
+}
+
+// endgeneral classes
+
+
+
+
+
+
+
+
+
+
 // modules
 
 #media-lib-modal {

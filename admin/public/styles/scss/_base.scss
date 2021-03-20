@@ -48,6 +48,7 @@ input,
 label,
 select {
     display: block;
+    width: 100%;
 }
 
 input[type='text'],
@@ -66,7 +67,7 @@ label {
 input[type='submit'] {
     background-color: transparent;
     color: black;
-    margin: 5px 0;
+    margin: 15px 0 5px;
     border: 1px solid #333;
     border-radius: 2px;
     padding: 5px 8px;

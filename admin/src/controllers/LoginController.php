@@ -18,6 +18,11 @@ class LoginController extends Controller {
         );
 
 
+        // inject js
+        $this->js = array(
+            $this->getScript('validate')
+        );
+
 
         $this->page_title = 'Login';
         $this->view('login');

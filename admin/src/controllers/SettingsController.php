@@ -22,7 +22,12 @@ class SettingsController extends Controller {
         $this->css = array(
             $this->getStylesheet('normalize'),
             $this->getStylesheet('main')
+        );
 
+
+        // inject js
+        $this->js = array(
+            $this->getScript('validate')
         );
         
         
@@ -35,8 +40,8 @@ class SettingsController extends Controller {
 
     public function updateSettings() {
         $userId = $_POST['user-id'];
-
-        if (isset($_POST['update-username'])) {
+        
+        if (isset($_POST['new-username'])) {
             // change the user's username
             $newUsername = $_POST['new-username'];
             
@@ -47,7 +52,7 @@ class SettingsController extends Controller {
                 $this->Session->setError('Username could not be updated. Please try again.');
             }
         }
-        else if (isset($_POST['update-password'])) {
+        else if (isset($_POST['new-password'])) {
             // change the user's password
             $currentPw = $_POST['current-password'];
             $newPw = $_POST['new-password'];

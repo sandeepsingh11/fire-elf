@@ -85,14 +85,15 @@
             "id": 9,
             "title": "Blog 5",
             "slug": "blog-5",
-            "author": "",
+            "author": "admin",
             "tags": [
-                ""
+                "izaya",
+                " ikebukuro"
             ],
             "cover": "",
             "content": "<p>hello?<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/IzayaOrihara.png\" alt=\"IzayaOrihara\" class=\"img-responsive img-fluid\" \/><\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Tokoyami_Fumikage.png\" alt=\"Tokoyami_Fumikage\" class=\"img-responsive img-fluid\" \/><\/p>",
             "created_at": "02-20-2021 02:11pm",
-            "updated_at": "02-20-2021 03:22pm"
+            "updated_at": "03-20-2021 04:32pm"
         },
         {
             "id": 10,

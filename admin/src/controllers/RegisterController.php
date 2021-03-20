@@ -20,6 +20,11 @@ class RegisterController extends Controller {
         );
 
 
+        // inject js
+        $this->js = array(
+            $this->getScript('validate')
+        );
+        
 
         $this->page_title = 'Register';
         $this->view('register');
