@@ -28,11 +28,12 @@
                 <span><?= $page['updated_at'] ?></span>
             </td>
             <td class="page-list">
-                <form action="/pages" method="post">
+                <form class="form-delete" action="/pages" method="post">
                     <input type="hidden" name="delete">
                     <input type="hidden" name="delete-id" value="<?= $page['id'] ?>">
+                    <input type="hidden" name="entry-name" value="<?= $this->escape($page['name']) ?>">
 
-                    <input type="submit" value="X">
+                    <input type="submit" class="btn-delete" value="X">
                 </form>
             </td>
         </tr>

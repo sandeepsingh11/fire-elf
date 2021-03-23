@@ -56,19 +56,6 @@
             "updated_at": "02-16-2021 05:59pm"
         },
         {
-            "id": 7,
-            "title": "Blog 3",
-            "slug": "blog-3",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<p>B L O G<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/src\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
-            "created_at": "02-20-2021 02:05pm",
-            "updated_at": ""
-        },
-        {
             "id": 8,
             "title": "Blog 4",
             "slug": "blog-4",
@@ -94,19 +81,6 @@
             "content": "<p>hello?<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/IzayaOrihara.png\" alt=\"IzayaOrihara\" class=\"img-responsive img-fluid\" \/><\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Tokoyami_Fumikage.png\" alt=\"Tokoyami_Fumikage\" class=\"img-responsive img-fluid\" \/><\/p>",
             "created_at": "02-20-2021 02:11pm",
             "updated_at": "03-20-2021 04:32pm"
-        },
-        {
-            "id": 10,
-            "title": "Blog 6",
-            "slug": "blog-6",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<p>OKIE DOKIE<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/IzayaOrihara.png\" alt=\"IzayaOrihara\" class=\"img-responsive img-fluid\" \/><\/p>",
-            "created_at": "02-20-2021 02:40pm",
-            "updated_at": ""
         },
         {
             "id": 11,

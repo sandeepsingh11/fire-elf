@@ -35,9 +35,10 @@
                 
             <td class="grid-item">
                 <!-- delete -->
-                <form action="/blogs" method="post">
+                <form class="form-delete" action="/blogs" method="post">
                     <input type="hidden" name="delete">
                     <input type="hidden" name="delete-id" value="<?= $blog['id'] ?>">
+                    <input type="hidden" name="entry-name" value="<?= $this->escape($blog['title']) ?>">
     
                     <input type="submit" value="X">
                 </form>

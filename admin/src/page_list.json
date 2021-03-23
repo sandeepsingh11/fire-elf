@@ -49,14 +49,6 @@
             "updated_at": "01-30-2021 05:31pm"
         },
         {
-            "id": 11,
-            "name": "demo g",
-            "parent_dir": "service\/",
-            "file": "demo-g.php",
-            "created_at": "01-30-2021 05:26pm",
-            "updated_at": "01-30-2021 05:26pm"
-        },
-        {
             "id": 14,
             "name": "Demo J",
             "parent_dir": "service\/",

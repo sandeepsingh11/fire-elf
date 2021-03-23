@@ -31,12 +31,18 @@ class PageController extends Controller {
         $this->page_arr = $this->Page->getAllPages();
         
         // inject css
-        $css_arr = array(
+        $this->css = array(
             $this->getStylesheet('normalize'),
             $this->getStylesheet('main')
 
         );
-        $this->css = $css_arr;
+
+
+        // inject js
+        $this->js = array(
+            $this->getScript('buttons')
+        );
+        
         
         // display the view
         $this->page_title = 'Pages';

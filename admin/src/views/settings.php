@@ -51,13 +51,15 @@
 <div class="flex flex-form">
     <?php foreach ($this->User->getAllUsers() as $user): ?>
         <!-- delete user -->
-        <form class="form form-secondary" action="/settings/delete" method="post">
+        <form class="form form-secondary form-delete" action="/settings/delete" method="post">
             <div class="form-title-container">
                 <h2 class="form-title"><?= $user['username'] ?></h2>
             </div>
 
             <div class="form-body-container">
                 <input type="hidden" name="user-id" value="<?= $user['id'] ?>">
+                <input type="hidden" name="entry-name" value="<?= $this->escape($user['username']) ?>">
+
                 <input type="submit" name="delete-user" value="Delete">
             </div>
         </form>

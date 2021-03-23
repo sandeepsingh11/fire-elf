@@ -33,12 +33,18 @@ class BlogController extends Controller {
         $this->blogs_arr = $this->Blog->getAllBlogs();
 
         // inject css
-        $css_arr = array(
+        $this->css = array(
             $this->getStylesheet('normalize'),
             $this->getStylesheet('main')
 
         );
-        $this->css = $css_arr;
+
+
+        // inject js
+        $this->js = array(
+            $this->getScript('buttons')
+        );
+
 
         $this->page_title = 'Blogs';
         $this->view('blogs');

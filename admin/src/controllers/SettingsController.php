@@ -27,6 +27,7 @@ class SettingsController extends Controller {
 
         // inject js
         $this->js = array(
+            $this->getScript('buttons'),
             $this->getScript('validate')
         );
         
@@ -71,7 +72,7 @@ class SettingsController extends Controller {
 
 
     public function deleteSettings() {
-        if (isset($_POST['delete-user'])) {
+        if (isset($_POST['user-id'])) {
             $userId = $_POST['user-id'];
 
             if ($this->User->deleteUser($userId)) {
