@@ -3,6 +3,15 @@
 ## About
 Fire Elf is my attempt at making a basic WordPress CMS. This is inspired by [Tania's Laconia project](https://github.com/taniarascia/laconia) and my goal of learning the MVC architecture. Fire Elf does the very basics that WordPress does, such as CRUD operations for pages, images, and blogs. This project isn't ready for production use, but great for studying and forking.
 
+## Run Locally
+1. clone this repo
+2. start up the PHP local web server (such as XAMPP or via [PHP CLI](https://www.php.net/manual/en/features.commandline.webserver.php))
+    - if using PHP CLI, type into the terminal: `php -S localhost:80 -t admin/public/`
+3. navigate to the local website
+4. admin login is
+    - admin
+    - root
+
 ## Tech
 Fire Elf is based in PHP. I incorporated PHP OOP and utilized classes to help build the MVC architecture. I did not use an external database, but instead created JSON files to save data. I found out that SQLite is probably a better option in this case, so I would like to incorporate this in the future.
 
