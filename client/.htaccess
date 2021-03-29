@@ -1,0 +1,9 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Do not route static files in the public directory
+RewriteCond %{REQUEST_URI} !\.(gif|jpg|png|webp|ico|js|css)$
+
+RewriteRule ^(.*)$ index.php [L]

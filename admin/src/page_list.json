@@ -9,14 +9,6 @@
             "updated_at": "12-18-2020 05:37pm"
         },
         {
-            "id": 2,
-            "name": "About",
-            "parent_dir": "\/",
-            "file": "about.php",
-            "created_at": "12-18-2020 06:50pm",
-            "updated_at": "12-18-2020 06:50pm"
-        },
-        {
             "id": 3,
             "name": "Service",
             "parent_dir": "\/",
@@ -25,75 +17,27 @@
             "updated_at": "12-29-2020 05:13pm"
         },
         {
-            "id": 4,
+            "id": 6,
+            "name": "About",
+            "parent_dir": "\/",
+            "file": "about.php",
+            "created_at": "03-29-2021 04:27pm",
+            "updated_at": ""
+        },
+        {
+            "id": 7,
             "name": "Service A",
             "parent_dir": "service\/",
             "file": "service-a.php",
-            "created_at": "12-29-2020 06:44pm",
-            "updated_at": "12-29-2020 06:44pm"
+            "created_at": "03-29-2021 04:28pm",
+            "updated_at": ""
         },
         {
             "id": 8,
-            "name": "RelPaths",
-            "parent_dir": "service\/",
-            "file": "relpaths.php",
-            "created_at": "12-30-2020 11:54pm",
-            "updated_at": "12-30-2020 11:54pm"
-        },
-        {
-            "id": 9,
-            "name": "demo e",
-            "parent_dir": "service\/",
-            "file": "demo-e.php",
-            "created_at": "01-30-2021 05:31pm",
-            "updated_at": "01-30-2021 05:31pm"
-        },
-        {
-            "id": 14,
-            "name": "Demo J",
-            "parent_dir": "service\/",
-            "file": "demo-j.php",
-            "created_at": "02-07-2021 10:21pm",
-            "updated_at": "02-10-2021 07:53pm"
-        },
-        {
-            "id": 15,
-            "name": "Demo K",
-            "parent_dir": "service\/",
-            "file": "demo-k.php",
-            "created_at": "02-10-2021 08:02pm",
-            "updated_at": "02-24-2021 07:58pm"
-        },
-        {
-            "id": 16,
-            "name": "Demo O",
-            "parent_dir": "service\/",
-            "file": "demo-o.php",
-            "created_at": "03-03-2021 11:44am",
-            "updated_at": ""
-        },
-        {
-            "id": 17,
-            "name": "Demo P",
-            "parent_dir": "service\/",
-            "file": "demo-p.php",
-            "created_at": "03-03-2021 03:48pm",
-            "updated_at": ""
-        },
-        {
-            "id": 18,
-            "name": "Demo R",
-            "parent_dir": "service\/",
-            "file": "demo-r.php",
-            "created_at": "03-04-2021 12:14pm",
-            "updated_at": ""
-        },
-        {
-            "id": 19,
-            "name": "Demo S",
-            "parent_dir": "service\/",
-            "file": "demo-s.php",
-            "created_at": "03-04-2021 12:18pm",
+            "name": "Blog Demo",
+            "parent_dir": "\/",
+            "file": "blog-demo.php",
+            "created_at": "03-29-2021 04:35pm",
             "updated_at": ""
         }
     ]

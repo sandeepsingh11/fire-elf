@@ -2,124 +2,17 @@
     "blog": [
         {
             "id": 1,
-            "title": "test",
-            "slug": "test",
-            "author": "me",
+            "title": "Blogging!",
+            "slug": "blogging",
+            "author": "Admin",
             "tags": [
                 "hello",
                 "world"
             ],
-            "cover": "Shoyu_Ramen.jpg",
-            "content": "<h1>~A<\/h1><p><em>edited<\/em><\/p>",
-            "created_at": "01-31-2021 10:20pm",
-            "updated_at": "02-03-2021 07:03pm"
-        },
-        {
-            "id": 2,
-            "title": "Test1",
-            "slug": "test-1",
-            "author": "me",
-            "tags": [
-                "big",
-                " new"
-            ],
-            "cover": "daru_hashida.png",
-            "content": "<p><strong>A<\/strong><\/p>",
-            "created_at": "02-03-2021 04:29pm",
-            "updated_at": ""
-        },
-        {
-            "id": 3,
-            "title": "Test2",
-            "slug": "test-2",
-            "author": "me",
-            "tags": [
-                "big",
-                "new"
-            ],
-            "cover": "nezuko_fanart.png",
-            "content": "<p><strong>A<\/strong><\/p>",
-            "created_at": "02-03-2021 04:40pm",
-            "updated_at": ""
-        },
-        {
-            "id": 5,
-            "title": "Blogu Testo",
-            "slug": "bloggg",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<h1>Iz blogg<\/h1>",
-            "created_at": "02-16-2021 05:59pm",
-            "updated_at": "02-16-2021 05:59pm"
-        },
-        {
-            "id": 8,
-            "title": "Blog 4",
-            "slug": "blog-4",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<p>Look, some <strong>content<\/strong>!<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
-            "created_at": "02-20-2021 02:08pm",
-            "updated_at": "02-24-2021 12:26pm"
-        },
-        {
-            "id": 9,
-            "title": "Blog 5",
-            "slug": "blog-5",
-            "author": "admin",
-            "tags": [
-                "izaya",
-                " ikebukuro"
-            ],
-            "cover": "",
-            "content": "<p>hello?<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/IzayaOrihara.png\" alt=\"IzayaOrihara\" class=\"img-responsive img-fluid\" \/><\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Tokoyami_Fumikage.png\" alt=\"Tokoyami_Fumikage\" class=\"img-responsive img-fluid\" \/><\/p>",
-            "created_at": "02-20-2021 02:11pm",
-            "updated_at": "03-20-2021 04:32pm"
-        },
-        {
-            "id": 11,
-            "title": "Blog 8",
-            "slug": "blog-8",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "daru-hashida.png",
-            "content": "<p>gawr<\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Callie&amp;Marie.png\" alt=\"Callie&amp;Marie\" class=\"img-responsive img-fluid\" \/><\/p>",
-            "created_at": "02-20-2021 02:54pm",
-            "updated_at": "02-20-2021 03:23pm"
-        },
-        {
-            "id": 12,
-            "title": "Toss The Dice",
-            "slug": "toss-the-dice",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<p>Dice!<\/p>",
-            "created_at": "02-24-2021 07:57pm",
-            "updated_at": ""
-        },
-        {
-            "id": 13,
-            "title": "Modal Example",
-            "slug": "modal-example",
-            "author": "",
-            "tags": [
-                ""
-            ],
-            "cover": "",
-            "content": "<p>Image via modal upload: <img src=\"http:\/\/admin.fireelf.xyz\/media\/deidara-edo_tensei.png\" alt=\"deidara-edo_tensei\" class=\"img-responsive img-fluid\" \/><img src=\"http:\/\/admin.fireelf.xyz\/media\/Aizawa.Shouta.png\" alt=\"Aizawa\" class=\"img-responsive img-fluid\" \/><\/p>",
-            "created_at": "03-13-2021 02:18pm",
-            "updated_at": ""
+            "cover": "inspiring_image.jpg",
+            "content": "<h1>Blogging!<\/h1><p>Blog<\/p><p><em>Blog<\/em><\/p><p><strong>Blog<\/strong><\/p><p><img src=\"http:\/\/admin.fireelf.xyz\/media\/Aizawa.png\" alt=\"Aizawa\" class=\"img-responsive img-fluid\" \/><\/p>",
+            "created_at": "03-29-2021 04:46pm",
+            "updated_at": "03-29-2021 04:49pm"
         }
     ]
 }

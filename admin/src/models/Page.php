@@ -154,7 +154,7 @@ class Page extends Model {
         // write html content
         if ($create) {
             // prepare html body string to insert
-            $dirRelPath = '\'../';
+            $dirRelPath = '__dir__ . \'/../';
             for ($i = 1; $i <= $dirLevels; $i++) {
                 $dirRelPath .= '../';
             }
@@ -165,7 +165,7 @@ class Page extends Model {
             require ' . $dirRelPath . 'comp/nav.php\';
             ?>';
             $bodyContent = '<fireelf data-id="1">' . $htmlContent . '</fireelf>';
-            $footerContent = '<?php ' . $dirRelPath . 'comp/footer.php\';';
+            $footerContent = '<?php require ' . $dirRelPath . 'comp/footer.php\';';
     
             $pageContent = $headContent . $bodyContent . $footerContent;
     

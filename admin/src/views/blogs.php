@@ -21,7 +21,7 @@
                 <a href="blog/editor?id=<?= $blog['id'] ?>"><?= $this->escape($blog['title']) ?></a>
             </td>
             <td class="blog-list">
-                <span><?php $this->escape($blog['author']) ?></span>
+                <span><?= $blog['author'] ?></span>
             </td>
             <td class="blog-list">
                 <span><?= (implode(' | ', $blog['tags'])) ?></span>
