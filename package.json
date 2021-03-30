@@ -1,12 +1,12 @@
 {
-  "name": "fire_elf",
-  "version": "0.6.0",
+  "name": "fire-elf",
+  "version": "1.0.0",
   "description": "A minimalistic CMS",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "cms"
+    "cms, php"
   ],
   "author": "Sandeep S",
   "license": "ISC",

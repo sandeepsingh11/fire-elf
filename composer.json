@@ -1,6 +1,6 @@
 {
-    "name": "sandeep/fire_elf",
-    "description": "Basic Admin Portal",
+    "name": "Fire Elf",
+    "description": "A minimalistic CMS",
     "type": "project",
     "require": {
         "nadar/quill-delta-parser": "^2.6"
